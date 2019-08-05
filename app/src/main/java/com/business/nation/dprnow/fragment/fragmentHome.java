@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.aspirasi.fragmentHomeAspirasi;
 import com.business.nation.dprnow.berita.fragmentHomeBerita;
-import com.business.nation.dprnow.pengaduan.fragmentHomePengaduan;
+import com.business.nation.dprnow.pengaduan.FragmentPengaduan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ public class fragmentHome extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFragment(new fragmentHomePengaduan(), "PENGADUAN");
+        adapter.addFragment(new FragmentPengaduan(), "PENGADUAN");
         adapter.addFragment(new fragmentHomeAspirasi(), "ASPIRASI");
         adapter.addFragment(new fragmentHomeBerita(), "BERITA");
         viewPager.setAdapter(adapter);

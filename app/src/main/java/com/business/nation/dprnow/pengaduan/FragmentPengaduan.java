@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.business.nation.dprnow.R;
 
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class fragmentHomePengaduan extends Fragment {
+public class FragmentPengaduan extends Fragment {
     RecyclerView recyclerView;
     private List<ModelPengaduan> listPengaduan = new ArrayList<ModelPengaduan>();
     AdapterPengaduan adapter;
@@ -32,6 +34,7 @@ public class fragmentHomePengaduan extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.rcPengaduan);
         listPengaduan = new ArrayList<>();
 
@@ -46,8 +49,31 @@ public class fragmentHomePengaduan extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
-        adapter = new AdapterPengaduan(getActivity(), getDatalist);
+        adapter = new AdapterPengaduan(getActivity(), getDatalist, recyclerView);
         recyclerView.setAdapter(adapter);
 
+        /*adapter.setOnItemListener(new AdapterPengaduan.OnItemClickListener() {
+            @Override
+            public void onItemClick(HashMap<String, String> item) {
+                Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+                Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean b) {
+
+            }
+        });
     }
 }

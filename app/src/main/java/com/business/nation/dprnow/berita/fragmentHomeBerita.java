@@ -51,7 +51,7 @@ public class fragmentHomeBerita extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
-        adapter = new AdapterPengaduan(getActivity(), getDatalist);
+        adapter = new AdapterPengaduan(getActivity(), getDatalist, recyclerView);
         recyclerView.setAdapter(adapter);
 
 

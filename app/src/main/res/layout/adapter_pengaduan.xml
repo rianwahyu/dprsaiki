@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="5dp"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="5dp"
+    android:id="@+id/cardPengaduan">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,8 +17,8 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 tools:ignore="MissingConstraints"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -78,7 +78,7 @@
                 tools:ignore="MissingConstraints"
                 app:layout_constraintTop_toBottomOf="@id/imgUser"
                 android:layout_marginTop="10dp"
-                android:text="Laporan Pengaduan Terkait"
+                android:text="@string/title"
                 android:textSize="9pt"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -92,7 +92,7 @@
                 android:id="@+id/textIsiPengaduan"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:text="Isi Pengaduan"
+                android:text="@string/isi"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"/>
 
