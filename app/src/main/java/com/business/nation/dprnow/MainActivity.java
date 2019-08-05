@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.business.nation.dprnow.fragment.FragmentKomisi;
 import com.business.nation.dprnow.fragment.fragmentHome;
 import com.business.nation.dprnow.util.BottomNavigationHelper;
 
@@ -37,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
                 switch (id){
                     case R.id.bottom_home:
                         fragment = new fragmentHome();
+                        break;
+
+                    case R.id.bottom_category:
+                        fragment = new FragmentKomisi();
                         break;
 
                 }

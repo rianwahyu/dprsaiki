@@ -9,6 +9,6 @@
     <item
         android:id="@+id/bottom_category"
         android:icon="@drawable/ic_viewlist_black"
-        android:title="Kategori"/>
+        android:title="Komisi"/>
 
 </menu>

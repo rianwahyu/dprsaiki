@@ -3,17 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#EEECEC">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/linearNduwur">
+        android:id="@+id/linearNduwur"
+        android:layout_margin="5dp">
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="40dp" 
+            android:background="@drawable/editext_background_round"
+            android:hint="Cari Disini"
+            android:padding="5dp"/>
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+            
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                tools:ignore="Suspicious0dp"
+                android:src="@drawable/bell_yellow"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                tools:ignore="Suspicious0dp"
+                android:src="@drawable/list_red"/>
+            
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -23,7 +51,8 @@
         app:tabMode="fixed"
         app:tabGravity="fill"
         android:id="@+id/tabHome"
-        android:layout_below="@+id/linearNduwur"/>
+        android:layout_below="@+id/linearNduwur"
+        android:background="#fff"/>
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
