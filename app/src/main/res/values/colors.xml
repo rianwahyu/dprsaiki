@@ -4,7 +4,6 @@
     <color name="colorPrimaryDark">#E53935</color>
     <color name="colorAccent">#FDD835</color>
 
-    <color name="abang">#E40C08</color>
 
     <color name="colorCheck">#ffffff</color>
     <color name="colorUncheck">#B2D7D2</color>
@@ -13,5 +12,8 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
 
+    <color name="white">#ffffff</color>
+    <color name="red">#E40C08</color>
+    <color name="black">#000000</color>
 
 </resources>

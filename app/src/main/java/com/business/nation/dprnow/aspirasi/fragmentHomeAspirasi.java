@@ -51,5 +51,6 @@ public class fragmentHomeAspirasi extends Fragment {
 
         adapter = new AdapterAspirasi(getActivity(), getDatalist);
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }

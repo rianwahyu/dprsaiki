@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <RelativeLayout
@@ -28,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="DPRNOW"
-                    android:textColor="#fff"
+                    android:textColor="@color/red"
                     android:gravity="center_vertical"
                     android:textSize="12pt"/>
 
@@ -45,12 +45,16 @@
         android:orientation="vertical">
 
         <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:animateLayoutChanges="true"
-            android:id="@+id/fragmentContainer">
+            android:layout_weight="1">
+
+
+            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/fragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </FrameLayout>
 
         <LinearLayout
@@ -63,8 +67,8 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_weight="1"
-                app:itemIconTint="@color/abang"
-                app:itemTextColor="@color/abang"
+                app:itemIconTint="@color/red"
+                app:itemTextColor="@color/red"
                 app:menu="@menu/main">
 
             </android.support.design.widget.BottomNavigationView>
@@ -80,8 +84,8 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_weight="1"
-                app:itemIconTint="@color/abang"
-                app:itemTextColor="@color/abang"
+                app:itemIconTint="@color/red"
+                app:itemTextColor="@color/red"
                 app:menu="@menu/main_right">
 
             </android.support.design.widget.BottomNavigationView>

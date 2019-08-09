@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.business.nation.dprnow.fragment.FragmentInformasi;
 import com.business.nation.dprnow.fragment.FragmentKomisi;
+import com.business.nation.dprnow.fragment.FragmentStreaming;
 import com.business.nation.dprnow.fragment.fragmentHome;
 import com.business.nation.dprnow.util.BottomNavigationHelper;
 
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private BottomNavigationView bottomNavigation, bottomNavigationRight;
-    private Fragment fragment;
+    private Fragment fragment, fragmentRight;
     private FragmentManager fragmentManager;
 
     @Override
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomnavLeft);
-        BottomNavigationHelper.disableShiftMode(bottomNavigation);
+        //BottomNavigationHelper.disableShiftMode(bottomNavigation);
         //bottomNavigation.inflateMenu(R.menu.main);
         fragmentManager = getSupportFragmentManager();
 
@@ -53,12 +55,25 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomNavigationRight = (BottomNavigationView) findViewById(R.id.bottomnavRigth);
-        BottomNavigationHelper.disableShiftMode(bottomNavigationRight);
+        //BottomNavigationHelper.disableShiftMode(bottomNavigationRight);
 
         bottomNavigationRight.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                return false;
+                int id = menuItem.getItemId();
+                switch (id){
+                    case R.id.bottom_streaming:
+                        fragmentRight = new FragmentStreaming();
+                        break;
+
+                    case R.id.bottom_info:
+                        fragmentRight = new FragmentInformasi();
+                        break;
+                }
+
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragmentContainer, fragmentRight).commit();
+                return true;
             }
         });
     }

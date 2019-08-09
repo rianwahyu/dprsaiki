@@ -35,4 +35,8 @@ dependencies {
     implementation 'com.algolia:instantsearch-android:1.15.3'
     implementation 'com.algolia:instantsearch-android-core:1.15.3'
 
+    implementation 'com.github.vipulasri:timelineview:1.1.0'
+    implementation 'com.github.ganfra:material-spinner:2.0.0'
+
+
 }

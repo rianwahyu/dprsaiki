@@ -24,6 +24,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:id="@+id/imgUser"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:src="@drawable/user_abu"/>
 
             <TextView
@@ -36,6 +38,7 @@
                 android:textStyle="bold"
                 android:textSize="8pt"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
                 android:id="@+id/textUser"/>
 
             <TextView
@@ -64,13 +67,16 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="INFORMASI"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints"
-                android:text="INFORMASI"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"/>
+                tools:layout_editor_absoluteY="5dp"
+                android:background="@drawable/button_blue_sea"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -78,6 +84,8 @@
                 tools:ignore="MissingConstraints"
                 app:layout_constraintTop_toBottomOf="@id/imgUser"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
                 android:text="@string/title"
                 android:textSize="9pt"
                 android:textStyle="bold"
@@ -94,7 +102,9 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:text="@string/isi"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" />
 
             <ImageView
                 android:layout_width="24dp"

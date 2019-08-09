@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <android.support.constraint.ConstraintLayout
@@ -23,13 +23,13 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     tools:ignore="MissingConstraints"
                     android:src="@drawable/user_abu"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/imgUser"/>
+                    android:id="@+id/imgUser" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -38,11 +38,11 @@
                     tools:ignore="MissingConstraints"
                     app:layout_constraintLeft_toRightOf="@id/imgUser"
                     android:text="John Doe"
-                    android:textColor="#fff"
-                    android:textSize="9pt"
-                    android:layout_marginTop="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="8pt"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/textUser"/>
+                    android:id="@+id/textUser" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -50,12 +50,22 @@
                     tools:ignore="MissingConstraints"
                     app:layout_constraintTop_toBottomOf="@id/textUser"
                     app:layout_constraintLeft_toRightOf="@id/imgUser"
-                    android:textColor="#fff"
+                    android:textColor="@color/black"
                     android:text="10 Hari yang lalu. Informasi"
-                    android:textSize="6pt"
+                    android:textSize="3.5pt"
                     android:layout_marginLeft="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="5dp"/>
+                    android:layout_marginBottom="20dp"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    tools:ignore="MissingConstraints"
+                    android:src="@drawable/ic_share"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginRight="15dp"/>
 
             </android.support.constraint.ConstraintLayout>
 
@@ -66,12 +76,14 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+        android:id="@+id/nested">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/linear">
 
             <TextView
                 android:layout_width="match_parent"
@@ -79,12 +91,74 @@
                 android:text="Nulla ullamco quis labore ex pariatur ex ut magna"
                 android:textStyle="bold"
                 android:textSize="10pt"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:textColor="@color/black"/>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:src="@drawable/abstrac"
+                android:scaleType="fitXY"
+                android:id="@+id/imgDetail"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/isi"
+                android:textSize="8pt"
+                android:layout_margin="5dp"
+                android:id="@+id/textIsi"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/linearSuka">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="7pt"
+                    android:text="19 Suka"
+                    android:layout_margin="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="7pt"
+                    android:text="3 Komentar"
+                    android:layout_margin="5dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+   <!-- <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_comment_white"
+        app:layout_anchor="@id/textIsi"
+        app:layout_anchorGravity="right|bottom"
+        app:backgroundTint="@color/white"
+        app:rippleColor="@color/black"
+        android:id="@+id/fabComment"
+        android:layout_marginBottom="20dp"/>-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_like_white"
+        app:layout_anchor="@id/linear"
+        app:layout_anchorGravity="bottom|right|end"
+        app:backgroundTint="@color/white"
+        app:rippleColor="@color/black"
+        android:id="@+id/fabLike" />
+
 
 </android.support.design.widget.CoordinatorLayout>
