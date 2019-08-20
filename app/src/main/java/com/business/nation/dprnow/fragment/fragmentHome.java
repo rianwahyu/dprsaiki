@@ -46,9 +46,9 @@ public class fragmentHome extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFragment(new FragmentPengaduan(), "PENGADUAN");
         adapter.addFragment(new fragmentHomeAspirasi(), "ASPIRASI");
         adapter.addFragment(new fragmentHomeBerita(), "BERITA");
+        adapter.addFragment(new FragmentPengaduan(), "AGENDA");
         viewPager.setAdapter(adapter);
     }
 

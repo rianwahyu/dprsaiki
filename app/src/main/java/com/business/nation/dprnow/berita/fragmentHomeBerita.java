@@ -21,8 +21,8 @@ import java.util.List;
 public class fragmentHomeBerita extends Fragment {
 
     RecyclerView recyclerView;
-    private List<ModelPengaduan> listPengaduan = new ArrayList<ModelPengaduan>();
-    AdapterPengaduan adapter;
+    private List<ModelBerita> listBerita = new ArrayList<ModelBerita>();
+    AdapterBerita adapter;
     ArrayList<HashMap<String,String>> getDatalist;
 
 
@@ -38,24 +38,12 @@ public class fragmentHomeBerita extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rcBerita);
-        listPengaduan = new ArrayList<>();
+        listBerita = new ArrayList<ModelBerita>();
 
-        getDatalist = new ArrayList<>();
-        for(int aind = 0 ; aind < 20; aind++){
-            HashMap<String,String> map = new HashMap<>();
-            map.put("KEY_EMAIL","android" + aind + "@gmail.com");
-            map.put("KEY_PHONE","aaa");
-            getDatalist.add(map);
-            //listPengaduan.add(map);
-        }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
-        adapter = new AdapterPengaduan(getActivity(), getDatalist, recyclerView);
+        adapter = new AdapterBerita(getActivity(), listBerita);
         recyclerView.setAdapter(adapter);
-
-
-
 
     }
 }

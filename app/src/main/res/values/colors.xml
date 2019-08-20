@@ -16,4 +16,8 @@
     <color name="red">#E40C08</color>
     <color name="black">#000000</color>
 
+    <color name="bottomtab_0">#6CCC3D</color>
+    <color name="bottomtab_1">#EA5C46</color>
+    <color name="bottomtab_2">#33b3cc</color>
+
 </resources>

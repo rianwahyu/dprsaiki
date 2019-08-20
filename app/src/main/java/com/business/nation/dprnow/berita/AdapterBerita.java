@@ -1,4 +1,4 @@
-package com.business.nation.dprnow.aspirasi;
+package com.business.nation.dprnow.berita;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,24 +6,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.business.nation.dprnow.R;
+import com.business.nation.dprnow.aspirasi.ModelAspirasi;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class AdapterAspirasi extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     ViewHolder viewHolder;
 
-    private List<ModelAspirasi> mDataset;
+    private List<ModelBerita> mDataset;
 
 
-    public AdapterAspirasi(Context context, List<ModelAspirasi> myDataset) {
+    public AdapterBerita(Context context, List<ModelBerita> myDataset) {
         this.context = context;
         mDataset = myDataset;
     }
