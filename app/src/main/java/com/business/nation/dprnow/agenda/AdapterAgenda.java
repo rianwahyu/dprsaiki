@@ -1,4 +1,4 @@
-package com.business.nation.dprnow.berita;
+package com.business.nation.dprnow.agenda;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,20 +9,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.business.nation.dprnow.R;
-import com.business.nation.dprnow.agenda.AdapterAgenda;
 import com.business.nation.dprnow.aspirasi.ModelAspirasi;
 
 import java.util.List;
 
-public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterAgenda extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     ViewHolders viewHolder;
 
-    private List<ModelBerita> mDataset;
+    private List<ModelAgenda> mDataset;
 
 
-    public AdapterBerita(Context context, List<ModelBerita> myDataset) {
+    public AdapterAgenda(Context context, List<ModelAgenda> myDataset) {
         this.context = context;
         mDataset = myDataset;
     }
@@ -31,13 +30,13 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemLayoutView = LayoutInflater.from(viewGroup.getContext()).inflate(
-                R.layout.adapter_berita, viewGroup, false);
+                R.layout.adapter_agenda, viewGroup, false);
         viewHolder = new ViewHolders(itemLayoutView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof ViewHolders) {
             ViewHolders viewHolders = (ViewHolders) viewHolder;
 
@@ -47,6 +46,7 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolders.textIsi.setText(mDataset.get(position).getDESKRIPSI());
             viewHolders.textTempat.setText(mDataset.get(position).getTEMPAT());
         }
+
     }
 
     @Override
@@ -54,16 +54,18 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return mDataset == null ? 0 : mDataset.size();
     }
 
-    public static class ViewHolders extends RecyclerView.ViewHolder{
+    public  class ViewHolders extends RecyclerView.ViewHolder{
+
         TextView textTanggal, textJam, textJudul, textIsi, textTempat;
-        
+
         public ViewHolders(@NonNull View itemView) {
             super(itemView);
-            textTanggal = itemView.findViewById(R.id.textTanggalBerita);
-            textJam = itemView.findViewById(R.id.textJamBerita);
-            textJudul = itemView.findViewById(R.id.textJudulBerita);
-            textIsi = itemView.findViewById(R.id.textIsiBerita);
-            textTempat = itemView.findViewById(R.id.textTempatBerita);
+            textTanggal = itemView.findViewById(R.id.textTanggalAgenda);
+            textJam = itemView.findViewById(R.id.textJamAgenda);
+            textJudul = itemView.findViewById(R.id.textJudulAgenda);
+            textIsi = itemView.findViewById(R.id.textIsiAgenda);
+            textTempat = itemView.findViewById(R.id.textTempatAgenda);
+
         }
     }
 

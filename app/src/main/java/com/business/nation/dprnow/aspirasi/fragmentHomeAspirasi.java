@@ -59,6 +59,7 @@ public class fragmentHomeAspirasi extends Fragment {
         }*/
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setHasFixedSize(true);
         adapter = new AdapterAspirasi(getActivity(), listPengaduan);
         recyclerView.setAdapter(adapter);
 
@@ -107,7 +108,7 @@ public class fragmentHomeAspirasi extends Fragment {
                     }
                 }
                 adapter.notifyDataSetChanged();
-                Toast.makeText(getActivity(), "Ada", Toast.LENGTH_SHORT).show();
+
             }
         }, new Response.ErrorListener() {
             @Override

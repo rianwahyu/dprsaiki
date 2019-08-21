@@ -1,4 +1,4 @@
-package com.business.nation.dprnow.berita;
+package com.business.nation.dprnow.agenda;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,9 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.business.nation.dprnow.R;
+import com.business.nation.dprnow.aspirasi.AdapterAspirasi;
 import com.business.nation.dprnow.aspirasi.ModelAspirasi;
-import com.business.nation.dprnow.pengaduan.AdapterPengaduan;
-import com.business.nation.dprnow.pengaduan.ModelPengaduan;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,18 +28,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class fragmentHomeBerita extends Fragment {
-
+public class fragmentHomeAgenda extends Fragment {
     RecyclerView recyclerView;
-    private List<ModelBerita> listBerita = new ArrayList<ModelBerita>();
-    AdapterBerita adapter;
+    private List<ModelAgenda> listAgenda = new ArrayList<ModelAgenda>();
+    AdapterAgenda adapter;
     ArrayList<HashMap<String,String>> getDatalist;
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_berita, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_aspirasi, container, false);
         return view;
     }
 
@@ -48,18 +45,17 @@ public class fragmentHomeBerita extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rcBerita);
-        listBerita = new ArrayList<ModelBerita>();
-
+        recyclerView = (RecyclerView) view.findViewById(R.id.rcAspirasi);
+        listAgenda = new ArrayList<ModelAgenda>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
-        adapter = new AdapterBerita(getActivity(), listBerita);
+        adapter = new AdapterAgenda(getActivity(), listAgenda);
         recyclerView.setAdapter(adapter);
-        initBerita();
+        initAgenda();
     }
 
-    private void initBerita() {
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_berita/";
+    private void initAgenda() {
+        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_agenda/";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -74,20 +70,21 @@ public class fragmentHomeBerita extends Fragment {
                         String DESKRIPSI =asp.getString("DESKRIPSI");
                         String JAM =asp.getString("JAM");
 
-                        ModelBerita mb = new ModelBerita();
-                        mb.setID(ID);
-                        mb.setJUDUL(JUDUL);
-                        mb.setTANGGAL(TANGGAL);
-                        mb.setTEMPAT(TEMPAT);
-                        mb.setDESKRIPSI(DESKRIPSI);
-                        mb.setJAM(JAM);
-                        listBerita.add(mb);
+                        ModelAgenda ma = new ModelAgenda();
+                        ma.setID(ID);
+                        ma.setJUDUL(JUDUL);
+                        ma.setTANGGAL(TANGGAL);
+                        ma.setTEMPAT(TEMPAT);
+                        ma.setDESKRIPSI(DESKRIPSI);
+                        ma.setJAM(JAM);
+
+                        listAgenda.add(ma);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
                 adapter.notifyDataSetChanged();
-                /*Toast.makeText(getActivity(), "Ada", Toast.LENGTH_SHORT).show();*/
+
             }
         }, new Response.ErrorListener() {
             @Override

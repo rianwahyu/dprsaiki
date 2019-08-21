@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.business.nation.dprnow.R;
+import com.business.nation.dprnow.agenda.fragmentHomeAgenda;
 import com.business.nation.dprnow.aspirasi.fragmentHomeAspirasi;
 import com.business.nation.dprnow.berita.fragmentHomeBerita;
 import com.business.nation.dprnow.pengaduan.FragmentPengaduan;
@@ -48,7 +49,7 @@ public class fragmentHome extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         adapter.addFragment(new fragmentHomeAspirasi(), "ASPIRASI");
         adapter.addFragment(new fragmentHomeBerita(), "BERITA");
-        adapter.addFragment(new FragmentPengaduan(), "AGENDA");
+        adapter.addFragment(new fragmentHomeAgenda(), "AGENDA");
         viewPager.setAdapter(adapter);
     }
 

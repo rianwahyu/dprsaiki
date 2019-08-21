@@ -31,7 +31,8 @@
             android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            android:id="@+id/textTanggalAspirasi"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -56,14 +57,14 @@
             android:textStyle="bold"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:id="@+id/textTitleAspirasi"/>
+            android:id="@+id/textJudulAspirasi"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"
             android:id="@+id/textIsiAspirasi"
-            app:layout_constraintTop_toBottomOf="@id/textTitleAspirasi"
+            app:layout_constraintTop_toBottomOf="@id/textJudulAspirasi"
             android:textSize="8pt"
             android:text="@string/isi"
             android:layout_marginLeft="5dp"
@@ -87,11 +88,12 @@
                 android:text="Diterima"
                 android:layout_alignParentLeft="true"
                 android:layout_margin="5dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:id="@+id/textStatusAspirasi"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lingkungan Hidup"
+                android:text=""
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
                 android:textColor="@color/red"/>
@@ -106,7 +108,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
-            android:id="@+id/imgLikePengaduan"
+            android:id="@+id/imgLikeAspirasi"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="10dp"/>
 
@@ -115,11 +117,11 @@
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"
             app:layout_constraintTop_toBottomOf="@id/relAspirasiDIterima"
-            app:layout_constraintLeft_toRightOf="@id/imgLikePengaduan"
+            app:layout_constraintLeft_toRightOf="@id/imgLikeAspirasi"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:text="10"
-            android:id="@+id/textCountLikePengaduan"
+            android:id="@+id/textCountLikeAspirasi"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="10dp"/>
 
@@ -129,7 +131,7 @@
             tools:ignore="MissingConstraints"
             app:layout_constraintTop_toBottomOf="@id/relAspirasiDIterima"
             android:src="@drawable/ic_unlike"
-            app:layout_constraintLeft_toRightOf="@id/textCountLikePengaduan"
+            app:layout_constraintLeft_toRightOf="@id/textCountLikeAspirasi"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/imgUnlike"
@@ -160,7 +162,8 @@
             android:layout_marginRight="5dp"
             android:textSize="7pt"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:id="@+id/textCountunCommentAspirasi"/>
 
         <ImageView
             android:layout_width="24dp"
