@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -28,11 +29,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class fragmentHomeAspirasi extends Fragment {
+public class fragmentHomeAspirasi extends Fragment implements ItemClickListener {
     RecyclerView recyclerView;
     private List<ModelAspirasi> listPengaduan = new ArrayList<ModelAspirasi>();
     AdapterAspirasi adapter;
-    ArrayList<HashMap<String,String>> getDatalist;
 
     @Nullable
     @Override
@@ -47,24 +47,14 @@ public class fragmentHomeAspirasi extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rcAspirasi);
         listPengaduan = new ArrayList<ModelAspirasi>();
-        /*listPengaduan = new ArrayList<>();
-
-        getDatalist = new ArrayList<>();
-        for(int aind = 0 ; aind < 20; aind++){
-            HashMap<String,String> map = new HashMap<>();
-            map.put("KEY_EMAIL","android" + aind + "@gmail.com");
-            map.put("KEY_PHONE","aaa");
-            getDatalist.add(map);
-            //listPengaduan.add(map);
-        }*/
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new AdapterAspirasi(getActivity(), listPengaduan);
         recyclerView.setAdapter(adapter);
-
-
         initAspirasi();
+        adapter.setClickListener(this);
     }
 
     private void initAspirasi() {
@@ -119,5 +109,12 @@ public class fragmentHomeAspirasi extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(jsonArrayRequest);
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        ModelAspirasi ma = listPengaduan.get(position);
+        String id = ma.getID();
+        Toast.makeText(getActivity(), id, Toast.LENGTH_SHORT).show();
     }
 }

@@ -29,14 +29,14 @@
                     android:src="@drawable/user_abu"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/imgUser" />
+                    android:id="@+id/imgUserAspirasi" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="MissingConstraints"
-                    app:layout_constraintLeft_toRightOf="@id/imgUser"
+                    app:layout_constraintLeft_toRightOf="@id/imgUserAspirasi"
                     android:text="John Doe"
                     android:textColor="@color/black"
                     android:textSize="8pt"
@@ -49,13 +49,14 @@
                     android:layout_height="wrap_content"
                     tools:ignore="MissingConstraints"
                     app:layout_constraintTop_toBottomOf="@id/textUser"
-                    app:layout_constraintLeft_toRightOf="@id/imgUser"
+                    app:layout_constraintLeft_toRightOf="@id/imgUserAspirasi"
                     android:textColor="@color/black"
                     android:text="10 Hari yang lalu. Informasi"
                     android:textSize="3.5pt"
                     android:layout_marginLeft="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="20dp"/>
+                    android:layout_marginBottom="20dp"
+                    android:id="@+id/textTanggalAspirasi"/>
 
                 <ImageView
                     android:layout_width="32dp"
@@ -92,14 +93,15 @@
                 android:textStyle="bold"
                 android:textSize="10pt"
                 android:layout_margin="5dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:id="@+id/textJudulAspirasi"/>
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 android:src="@drawable/abstrac"
                 android:scaleType="fitXY"
-                android:id="@+id/imgDetail"/>
+                android:id="@+id/imgAspirasi"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -107,7 +109,7 @@
                 android:text="@string/isi"
                 android:textSize="8pt"
                 android:layout_margin="5dp"
-                android:id="@+id/textIsi"/>
+                android:id="@+id/textIsiAspirasi"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

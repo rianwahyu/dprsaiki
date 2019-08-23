@@ -36,12 +36,36 @@ public class fragmentHome extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        setupViewPager(viewPager);
+
+        //setupViewPager(viewPager);
 
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabHome);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.addTab(tabLayout.newTab().setText("Aspirasi"));
+        tabLayout.addTab(tabLayout.newTab().setText("Berita"));
+        tabLayout.addTab(tabLayout.newTab().setText("Agenda"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        TabsHome tabsHome = new TabsHome(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(tabsHome);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        //tabLayout.setupWithViewPager(viewPager);
 
     }
 

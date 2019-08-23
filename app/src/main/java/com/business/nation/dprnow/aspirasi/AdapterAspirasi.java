@@ -1,13 +1,16 @@
 package com.business.nation.dprnow.aspirasi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.business.nation.dprnow.R;
@@ -20,14 +23,16 @@ import java.util.List;
 public class AdapterAspirasi extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    ViewHolders viewHolder;
-
     private List<ModelAspirasi> mDataset;
-
+    private ItemClickListener itemClickListener;
 
     public AdapterAspirasi(Context context, List<ModelAspirasi> myDataset) {
         this.context = context;
         mDataset = myDataset;
+    }
+
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -35,7 +40,7 @@ public class AdapterAspirasi extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemLayoutView = LayoutInflater.from(viewGroup.getContext()).inflate(
                 R.layout.adapter_aspirasi, viewGroup, false);
-        viewHolder = new ViewHolders(itemLayoutView);
+        ViewHolders viewHolder = new ViewHolders(itemLayoutView);
         return viewHolder;
     }
 
@@ -56,6 +61,17 @@ public class AdapterAspirasi extends RecyclerView.Adapter<RecyclerView.ViewHolde
             Glide.with(context)
                     .load(photo)
                     .into(viewHolders.imgAspirasi);
+
+            final String id = mDataset.get(position).getID();
+
+            viewHolders.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), DetailAspirasi.class);
+                    intent.putExtra("id", id);
+                    ((v.getContext())).startActivity(intent);
+                }
+            });
         }
     }
 
@@ -64,10 +80,11 @@ public class AdapterAspirasi extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mDataset == null ? 0 : mDataset.size();
     }
 
-    public static class ViewHolders extends RecyclerView.ViewHolder{
+    public  class ViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView textTanggal, textJudul, textIsi, textStatus, textLike, textUnlike, textComment;
         ImageView imgAspirasi;
+        CardView cardView;
         public ViewHolders(@NonNull View itemView) {
             super(itemView);
 
@@ -80,6 +97,12 @@ public class AdapterAspirasi extends RecyclerView.Adapter<RecyclerView.ViewHolde
             textComment = itemView.findViewById(R.id.textCountunCommentAspirasi);
 
             imgAspirasi = itemView.findViewById(R.id.imgAspirasi);
+            cardView = itemView.findViewById(R.id.cardAspirasi);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (itemClickListener != null) itemClickListener.onClick(view, getAdapterPosition());
         }
     }
 
