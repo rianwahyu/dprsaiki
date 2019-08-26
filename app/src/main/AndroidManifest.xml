@@ -27,6 +27,15 @@
         <activity android:name=".aspirasi.DetailAspirasi"
             android:theme="@style/MyMaterialTheme"/>
 
+        <activity android:name=".berita.DetailBerita"
+            android:theme="@style/MyMaterialTheme"/>
+
+        <activity android:name=".anggota.AnggotaActivity"
+            android:theme="@style/MyMaterialTheme"/>
+
+        <activity android:name=".anggota.DetailAnggota"
+            android:theme="@style/MyMaterialTheme"/>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"

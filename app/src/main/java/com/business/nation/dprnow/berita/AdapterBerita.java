@@ -1,15 +1,18 @@
 package com.business.nation.dprnow.berita;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.agenda.AdapterAgenda;
+import com.business.nation.dprnow.aspirasi.DetailAspirasi;
 import com.business.nation.dprnow.aspirasi.ModelAspirasi;
 
 import java.util.List;
@@ -46,6 +49,17 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolders.textJudul.setText(mDataset.get(position).getJUDUL());
             viewHolders.textIsi.setText(mDataset.get(position).getDESKRIPSI());
             viewHolders.textTempat.setText(mDataset.get(position).getTEMPAT());
+
+            final String id = mDataset.get(position).getID();
+
+            ((ViewHolders) viewHolder).frameLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), DetailBerita.class);
+                    intent.putExtra("id", id);
+                    ((v.getContext())).startActivity(intent);
+                }
+            });
         }
     }
 
@@ -56,7 +70,7 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public static class ViewHolders extends RecyclerView.ViewHolder{
         TextView textTanggal, textJam, textJudul, textIsi, textTempat;
-        
+        FrameLayout frameLayout;
         public ViewHolders(@NonNull View itemView) {
             super(itemView);
             textTanggal = itemView.findViewById(R.id.textTanggalBerita);
@@ -64,6 +78,8 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             textJudul = itemView.findViewById(R.id.textJudulBerita);
             textIsi = itemView.findViewById(R.id.textIsiBerita);
             textTempat = itemView.findViewById(R.id.textTempatBerita);
+
+            frameLayout = itemView.findViewById(R.id.frameBerita);
         }
     }
 
