@@ -1,10 +1,12 @@
 package com.business.nation.dprnow.aspirasi;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,8 +15,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.util.AppController;
+import com.business.nation.dprnow.util.NetworkState;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,10 +28,13 @@ import java.util.Map;
 
 public class DetailAspirasi extends AppCompatActivity {
 
-    TextView textUser, textTanggal, textJam, textJudul, textIsi, textStatus, textLike
+    TextView textUser, textTanggal, textJam, textJudul, textStatus, textLike
             ,textUnlike, textComment;
-    ImageView imgFoto;
+    ImageView imgAspirasi;
+    WebView textIsi;
     String id;
+
+    Context context=DetailAspirasi.this;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,7 @@ public class DetailAspirasi extends AppCompatActivity {
         textLike = findViewById(R.id.textCountLikeAspirasi);
         textUnlike = findViewById(R.id.textCountunlikeAspirasi);
         textComment = findViewById(R.id.textCountunCommentAspirasi);
+        imgAspirasi = findViewById(R.id.imgAspirasi);
 
         id = getIntent().getStringExtra("id");
 
@@ -60,7 +68,7 @@ public class DetailAspirasi extends AppCompatActivity {
     }
 
     public void getDetailAspirasi(final String id){
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_single_aspirasi/";
+        String url = NetworkState.getUrl()+ "get_data_single_aspirasi/";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -84,9 +92,21 @@ public class DetailAspirasi extends AppCompatActivity {
                     textJudul.setText(JUDUL);
                     textUser.setText(USER);
                     textTanggal.setText(TANGGAL + ", " +JAM);
-                    textIsi.setText(ISI);
-                    /*textLike.setText(LIKE);
-                    textComment.setText(COMMENT);*/
+                    textLike.setText(LIKE);
+                    textComment.setText(COMMENT);
+                    textUnlike.setText(UNLIKE);
+                    textStatus.setText(STATUS);
+
+
+                    String myHtmlStringDeskripsi = "<html><body><p align='justify'>" +
+                            ISI +
+                            "</p></body></html>";
+                    textIsi.loadData(myHtmlStringDeskripsi, "text/html", null);
+                    /*String photo = "https://dprd.gresikkab.go.id/dprd/foto/aspirasi/"+FOTO;*/
+                    String photo = NetworkState.getUrlDir()+"foto/aspirasi/"+FOTO;
+                    Glide.with(context)
+                            .load(photo)
+                            .into(imgAspirasi);
 
 
                 } catch (JSONException e) {

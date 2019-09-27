@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.berita.ModelBerita;
+import com.business.nation.dprnow.util.NetworkState;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,7 +77,7 @@ public class AnggotaActivity extends AppCompatActivity {
     }
 
     private void initAnggota() {
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_anggota/";
+        String url = NetworkState.getUrl()+"get_data_anggota/";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

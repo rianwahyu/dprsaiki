@@ -11,6 +11,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.agenda.fragmentHomeAgenda;
@@ -25,6 +28,8 @@ public class fragmentHome extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    EditText et_search;
+    ImageView imgSearch;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,6 +40,9 @@ public class fragmentHome extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        et_search = view.findViewById(R.id.et_search);
+        imgSearch = view.findViewById(R.id.imgSearch);
 
 
         //setupViewPager(viewPager);
@@ -63,6 +71,15 @@ public class fragmentHome extends Fragment {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+
+        imgSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String query = et_search.getText().toString();
+
+                Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
             }
         });
         //tabLayout.setupWithViewPager(viewPager);

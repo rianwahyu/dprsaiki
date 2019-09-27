@@ -38,7 +38,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
@@ -57,40 +57,26 @@
 
         </FrameLayout>
 
-        <LinearLayout
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
             android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/main" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAdd"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            app:elevation="8dp"
+            android:src="@drawable/ic_add_red"
+            android:scaleType="fitXY"
+            app:backgroundTint="@color/white"
+            app:maxImageSize="60dp"/>
 
-            <android.support.design.widget.BottomNavigationView
-                android:id="@+id/bottomnavLeft"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                app:itemIconTint="@color/red"
-                app:itemTextColor="@color/red"
-                app:menu="@menu/main">
-
-            </android.support.design.widget.BottomNavigationView>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="0.5"
-                android:src="@drawable/ic_add_red" />
-
-            <android.support.design.widget.BottomNavigationView
-                android:id="@+id/bottomnavRigth"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                app:itemIconTint="@color/red"
-                app:itemTextColor="@color/red"
-                app:menu="@menu/main_right">
-
-            </android.support.design.widget.BottomNavigationView>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

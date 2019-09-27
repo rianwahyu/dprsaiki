@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -58,7 +59,7 @@
                     android:text="Tanggal"
                     android:id="@+id/textTanggalBerita"
                     android:textColor="@color/black"
-                    android:textSize="16sp"/>
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -67,24 +68,30 @@
                     android:id="@+id/textTempatBerita"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:text="Tempat"/>
+                    android:text="Tempat"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nulla ullamco quis labore ex pariatur ex ut magna"
+                android:text=".."
                 android:textStyle="bold"
-                android:textSize="10pt"
+                android:textSize="18sp"
                 android:layout_margin="5dp"
                 android:textColor="@color/black"
                 android:id="@+id/textJudulBerita"/>
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:id="@+id/imgBerita"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/isi"
+                android:text=".."
                 android:textSize="8pt"
                 android:layout_margin="5dp"
                 android:id="@+id/textIsiBerita"/>
@@ -93,7 +100,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/linearSuka">
+                android:id="@+id/linearSuka"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -117,28 +125,6 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-   <!-- <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_comment_white"
-        app:layout_anchor="@id/textIsi"
-        app:layout_anchorGravity="right|bottom"
-        app:backgroundTint="@color/white"
-        app:rippleColor="@color/black"
-        android:id="@+id/fabComment"
-        android:layout_marginBottom="20dp"/>-->
-
-   <!-- <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_like_white"
-        app:layout_anchor="@id/linear"
-        app:layout_anchorGravity="bottom|right|end"
-        app:backgroundTint="@color/white"
-        app:rippleColor="@color/black"
-        android:id="@+id/fabLike" />-->
 
 
 </android.support.design.widget.CoordinatorLayout>

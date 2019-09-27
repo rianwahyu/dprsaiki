@@ -20,6 +20,8 @@ import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.aspirasi.ModelAspirasi;
 import com.business.nation.dprnow.pengaduan.AdapterPengaduan;
 import com.business.nation.dprnow.pengaduan.ModelPengaduan;
+import com.business.nation.dprnow.util.NetworkState;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +37,7 @@ public class fragmentHomeBerita extends Fragment {
     private List<ModelBerita> listBerita = new ArrayList<ModelBerita>();
     AdapterBerita adapter;
     ArrayList<HashMap<String,String>> getDatalist;
-
+    ShimmerFrameLayout shimmerFrameLayout;
 
     @Nullable
     @Override
@@ -49,6 +51,10 @@ public class fragmentHomeBerita extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rcBerita);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer);
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
+        recyclerView.setVisibility(View.INVISIBLE);
         listBerita = new ArrayList<ModelBerita>();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -59,10 +65,14 @@ public class fragmentHomeBerita extends Fragment {
     }
 
     private void initBerita() {
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_berita/";
+        /*String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_berita/";*/
+        String url = NetworkState.getUrl()+"get_data_berita/";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                shimmerFrameLayout.setVisibility(View.INVISIBLE);
+                shimmerFrameLayout.stopShimmer();
+                recyclerView.setVisibility(View.VISIBLE);
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject asp = response.getJSONObject(i);
@@ -72,6 +82,8 @@ public class fragmentHomeBerita extends Fragment {
                         String TANGGAL =asp.getString("TANGGAL");
                         String TEMPAT =asp.getString("TEMPAT");
                         String DESKRIPSI =asp.getString("DESKRIPSI");
+                        String ID_KEGIATAN =asp.getString("ID_KEGIATAN");
+                        String FILE_FOTO =asp.getString("FILE_FOTO");
                         String JAM =asp.getString("JAM");
 
                         ModelBerita mb = new ModelBerita();
@@ -81,6 +93,8 @@ public class fragmentHomeBerita extends Fragment {
                         mb.setTEMPAT(TEMPAT);
                         mb.setDESKRIPSI(DESKRIPSI);
                         mb.setJAM(JAM);
+                        mb.setID_KEGIATAN(ID_KEGIATAN);
+                        mb.setFILE_FOTO(FILE_FOTO);
                         listBerita.add(mb);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -93,6 +107,9 @@ public class fragmentHomeBerita extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getActivity(), "Eror", Toast.LENGTH_SHORT).show();
+                shimmerFrameLayout.setVisibility(View.INVISIBLE);
+                shimmerFrameLayout.stopShimmer();
+                recyclerView.setVisibility(View.VISIBLE);
             }
         });
 

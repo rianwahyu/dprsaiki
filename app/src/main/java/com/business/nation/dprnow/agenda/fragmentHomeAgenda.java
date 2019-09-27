@@ -19,6 +19,8 @@ import com.android.volley.toolbox.Volley;
 import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.aspirasi.AdapterAspirasi;
 import com.business.nation.dprnow.aspirasi.ModelAspirasi;
+import com.business.nation.dprnow.util.NetworkState;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,11 +35,11 @@ public class fragmentHomeAgenda extends Fragment {
     private List<ModelAgenda> listAgenda = new ArrayList<ModelAgenda>();
     AdapterAgenda adapter;
     ArrayList<HashMap<String,String>> getDatalist;
-
+    ShimmerFrameLayout shimmerFrameLayout;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_aspirasi, container, false);
+        View view = inflater.inflate(R.layout.fragment_home_agenda, container, false);
         return view;
     }
 
@@ -45,7 +47,11 @@ public class fragmentHomeAgenda extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rcAspirasi);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rcAgenda);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer);
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
+        recyclerView.setVisibility(View.INVISIBLE);
         listAgenda = new ArrayList<ModelAgenda>();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
@@ -55,10 +61,14 @@ public class fragmentHomeAgenda extends Fragment {
     }
 
     private void initAgenda() {
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_agenda/";
+        /*String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_agenda/";*/
+        String url = NetworkState.getUrl()+ "get_data_agenda/";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                shimmerFrameLayout.setVisibility(View.INVISIBLE);
+                shimmerFrameLayout.stopShimmer();
+                recyclerView.setVisibility(View.VISIBLE);
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject asp = response.getJSONObject(i);
@@ -90,6 +100,9 @@ public class fragmentHomeAgenda extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getActivity(), "Eror", Toast.LENGTH_SHORT).show();
+                shimmerFrameLayout.setVisibility(View.INVISIBLE);
+                shimmerFrameLayout.stopShimmer();
+                recyclerView.setVisibility(View.VISIBLE);
             }
         });
 

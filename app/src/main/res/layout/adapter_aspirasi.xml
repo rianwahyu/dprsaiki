@@ -12,39 +12,62 @@
         android:layout_height="match_parent"
         android:background="#fff">
 
-        <Button
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             tools:ignore="MissingConstraints"
-            android:text="Aspirasi"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/button_green"
-            android:textColor="@color/white"
             android:id="@+id/btnAspirasi"
+            android:background="@drawable/bubles"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="5dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="ASPIRASI"
+                android:textColor="@color/white"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="25dp"
+                android:gravity="center_vertical"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="fill_parent"
+            android:background="#90909090"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/btnAspirasi"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"
             android:text="20 hari yang lalu"
-            android:textColor="@color/black"
+            android:textColor="#FF1744"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_margin="5dp"
-            android:id="@+id/textTanggalAspirasi"/>
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/textTanggalAspirasi"
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="210dp"
             tools:ignore="MissingConstraints"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/imgAspirasi"
             android:src="@drawable/abstrac"
             app:layout_constraintTop_toBottomOf="@id/btnAspirasi"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:scaleType="fitXY"/>
 
         <TextView
@@ -54,24 +77,31 @@
             app:layout_constraintTop_toBottomOf="@id/imgAspirasi"
             android:text="@string/title"
             android:layout_marginTop="10dp"
-            android:textSize="9pt"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:id="@+id/textJudulAspirasi"/>
+            android:id="@+id/textJudulAspirasi"
+            android:textColor="@color/black"/>
 
-        <TextView
+        <WebView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"
             android:id="@+id/textIsiAspirasi"
             app:layout_constraintTop_toBottomOf="@id/textJudulAspirasi"
-            android:textSize="8pt"
-            android:text="@string/isi"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:textSize="14sp"
             android:layout_marginTop="10dp"
             />
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="fill_parent"
+            android:background="#90909090"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/textIsiAspirasi"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -89,16 +119,29 @@
                 android:text="Diterima"
                 android:layout_alignParentLeft="true"
                 android:layout_margin="5dp"
-                android:textColor="@color/black"
-                android:id="@+id/textStatusAspirasi"/>
+                android:textColor="#0288D1"
+                android:id="@+id/textStatusAspirasi"
+                android:textStyle="bold"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="User"
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
-                android:textColor="@color/red"/>
+                android:layout_marginRight="5dp"
+                android:textColor="@color/red"
+                android:id="@+id/textUserAspirasi"/>
         </RelativeLayout>
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="fill_parent"
+            android:background="#90909090"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/relAspirasiDIterima"/>
+
 
         <ImageView
             android:layout_width="24dp"

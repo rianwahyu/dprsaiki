@@ -16,23 +16,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"
-            android:id="@+id/textTanggalBerita"
+            android:id="@+id/textTempatBerita"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text="15-12-2018"/>
+            android:text="Tempat"
+            android:textColor="#3D5AFE"
+            android:textSize="15sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <View
+            android:layout_height="1dp"
+            android:layout_width="fill_parent"
+            android:background="#90909090"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/textJamBerita"
-            android:text="15:00"/>
+            app:layout_constraintTop_toBottomOf="@id/textTempatBerita"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -40,40 +40,91 @@
             tools:ignore="MissingConstraints"
             android:textStyle="bold"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/textTanggalBerita"
+            app:layout_constraintTop_toBottomOf="@id/textTempatBerita"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:text="JUDUL"
-            android:textSize="10pt"
-            android:textAlignment="center"
-            android:id="@+id/textJudulBerita"/>
+            android:textSize="18sp"
+            android:textAlignment="textStart"
+            android:id="@+id/textJudulBerita"
+            android:gravity="start"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="fill_parent"
+            android:background="#90909090"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="2dp"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/textJudulBerita"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/textJudulBerita"
+            android:id="@+id/imgBerita"
+            android:scaleType="fitXY"/>
+        <!--<View
+            android:layout_height="1dp"
+            android:layout_width="fill_parent"
+            android:background="#90909090"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/imgBerita"/>-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"
-            app:layout_constraintTop_toBottomOf="@id/textJudulBerita"
+            app:layout_constraintTop_toBottomOf="@id/imgBerita"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:text="Isi"
-            android:layout_margin="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/textIsiBerita"
-            android:textSize="8.5pt"
+            android:textSize="16sp"
             android:textAlignment="textStart"
             android:gravity="start" />
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="fill_parent"
+            android:background="#90909090"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@id/textIsiBerita"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"
             app:layout_constraintTop_toBottomOf="@id/textIsiBerita"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="10dp"
-            android:text="Ruang Guru"
-            android:id="@+id/textTempatBerita"/>
+            android:text="Tanggal"
+            android:id="@+id/textTanggalBerita"
+            android:textSize="14sp"
+            android:textColor="#33691E"/>
 
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/textJamBerita"
+            android:text="15:00"
+            app:layout_constraintTop_toBottomOf="@id/textIsiBerita"
+            app:layout_constraintLeft_toRightOf="@id/textTanggalBerita"
+            android:layout_marginLeft="10dp"
+            android:textColor="#33691E"/>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -38,11 +39,11 @@
                     tools:ignore="MissingConstraints"
                     app:layout_constraintLeft_toRightOf="@id/imgUserAspirasi"
                     android:text="John Doe"
-                    android:textColor="@color/black"
-                    android:textSize="8pt"
+                    android:textColor="#FF1744"
+                    android:textSize="18sp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/textUser" />
+                    android:id="@+id/textUser"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -50,11 +51,10 @@
                     tools:ignore="MissingConstraints"
                     app:layout_constraintTop_toBottomOf="@id/textUser"
                     app:layout_constraintLeft_toRightOf="@id/imgUserAspirasi"
-                    android:textColor="@color/black"
+                    android:textColor="#2979FF"
                     android:text="10 Hari yang lalu. Informasi"
-                    android:textSize="3.5pt"
+                    android:textSize="14sp"
                     android:layout_marginLeft="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="20dp"
                     android:id="@+id/textTanggalAspirasi"/>
 
@@ -80,62 +80,189 @@
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
         android:id="@+id/nested">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/linear">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nulla ullamco quis labore ex pariatur ex ut magna"
-                android:textStyle="bold"
-                android:textSize="10pt"
-                android:layout_margin="5dp"
-                android:textColor="@color/black"
-                android:id="@+id/textJudulAspirasi"/>
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            tools:ignore="WebViewLayout">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="250dp"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:id="@+id/imgAspirasi"
                 android:src="@drawable/abstrac"
-                android:scaleType="fitXY"
-                android:id="@+id/imgAspirasi"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="fitXY"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/isi"
-                android:textSize="8pt"
-                android:layout_margin="5dp"
-                android:id="@+id/textIsiAspirasi"/>
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@id/imgAspirasi"
+                android:text="@string/title"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/textJudulAspirasi"
+                android:textColor="@color/black"
+                />
 
-            <LinearLayout
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#90909090"
+                android:layout_marginTop="5dp"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@id/textJudulAspirasi"/>
+
+            <WebView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints"
+                android:id="@+id/textIsiAspirasi"
+                app:layout_constraintTop_toBottomOf="@id/textJudulAspirasi"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                />
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#90909090"
+                android:layout_marginTop="5dp"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@id/textIsiAspirasi"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints"
+                android:id="@+id/relAspirasiDIterima"
                 android:orientation="horizontal"
-                android:id="@+id/linearSuka">
+                app:layout_constraintTop_toBottomOf="@+id/textIsiAspirasi"
+                android:layout_marginTop="5dp"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="7pt"
-                    android:text="19 Suka"
-                    android:layout_margin="5dp"/>
-
+                    android:text="Diterima"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="5dp"
+                    android:textColor="#0288D1"
+                    android:id="@+id/textStatusAspirasi"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="7pt"
-                    android:text="3 Komentar"
-                    android:layout_margin="5dp"/>
+                    android:text=""
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/red"/>
+            </RelativeLayout>
 
-            </LinearLayout>
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#90909090"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@id/relAspirasiDIterima"/>
 
-        </LinearLayout>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@id/relAspirasiDIterima"
+                android:src="@drawable/ic_like_white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/imgLikeAspirasi"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@id/relAspirasiDIterima"
+                app:layout_constraintLeft_toRightOf="@id/imgLikeAspirasi"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:text="10"
+                android:id="@+id/textCountLikeAspirasi"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@id/relAspirasiDIterima"
+                android:src="@drawable/ic_unlike"
+                app:layout_constraintLeft_toRightOf="@id/textCountLikeAspirasi"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/imgUnlike"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@id/relAspirasiDIterima"
+                app:layout_constraintLeft_toRightOf="@id/imgUnlike"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:text="0"
+                android:id="@+id/textCountunlikeAspirasi"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints"
+                android:text="1"
+                app:layout_constraintTop_toBottomOf="@id/relAspirasiDIterima"
+                app:layout_constraintRight_toLeftOf="@id/imgCommentAspirasi"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:textSize="7pt"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/textCountunCommentAspirasi"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_comment_white"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/imgCommentAspirasi"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#90909090"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintTop_toBottomOf="@id/imgCommentAspirasi"/>
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
@@ -151,7 +278,7 @@
         android:id="@+id/fabComment"
         android:layout_marginBottom="20dp"/>-->
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -160,7 +287,7 @@
         app:layout_anchorGravity="bottom|right|end"
         app:backgroundTint="@color/white"
         app:rippleColor="@color/black"
-        android:id="@+id/fabLike" />
+        android:id="@+id/fabLike" />-->
 
 
 </android.support.design.widget.CoordinatorLayout>

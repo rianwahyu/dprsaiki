@@ -15,8 +15,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.util.AppController;
+import com.business.nation.dprnow.util.NetworkState;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,6 +67,7 @@ public class DetailAnggota extends AppCompatActivity {
         textAgama = findViewById(R.id.textAgamaAnggota);
         textEmail = findViewById(R.id.textEmailAnggota);
         textnoHp = findViewById(R.id.textNoHPAnggota);
+        imgFoto = findViewById(R.id.imgAnggota);
 
         id_anggota = getIntent().getStringExtra("id_anggota");
         nama = getIntent().getStringExtra("NAMA");
@@ -78,6 +81,13 @@ public class DetailAnggota extends AppCompatActivity {
         foto = getIntent().getStringExtra("FOTO");
         posisi = getIntent().getStringExtra("POSISI");
         nik = getIntent().getStringExtra("NIK");
+
+        /*String imageAnggota= "https://dprd.gresikkab.go.id/dprd/foto/"+foto;*/
+        String imageAnggota= NetworkState.getUrlDir()+"foto/"+foto;
+        Glide.with(this)
+                .load(imageAnggota)
+                .into(imgFoto);
+
 
         textNamaAnggota.setText(nama);
         textTempatLahir.setText("Tempat, Tanggal lahir :\n" +tempatlahir+", "+tgllahir );
@@ -131,7 +141,8 @@ public class DetailAnggota extends AppCompatActivity {
     }
 
     public void getPenddikan(final String id){
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_pendidikan/";
+        /*String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_pendidikan/";*/
+        String url = NetworkState.getUrl()+"get_data_pendidikan/";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -171,7 +182,8 @@ public class DetailAnggota extends AppCompatActivity {
     }
 
     public void getPekerjaan(final String id){
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_pekerjaan/";
+        /*String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_pekerjaan/";*/
+        String url = NetworkState.getUrl()+"get_data_pekerjaan/";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -211,7 +223,8 @@ public class DetailAnggota extends AppCompatActivity {
     }
 
     public void getOrganisasi(final String id){
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_organisasi/";
+        /*String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_organisasi/";*/
+        String url = NetworkState.getUrl()+"get_data_organisasi/";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -251,7 +264,8 @@ public class DetailAnggota extends AppCompatActivity {
     }
 
     public void getPenghargaan(final String id){
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_penghargaan/";
+        /*String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_penghargaan/";*/
+        String url = NetworkState.getUrl()+"get_data_penghargaan/";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

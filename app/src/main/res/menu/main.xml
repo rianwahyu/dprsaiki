@@ -9,6 +9,21 @@
     <item
         android:id="@+id/bottom_category"
         android:icon="@drawable/ic_viewlist_black"
-        android:title="Komisi"/>
+        android:title="Pengaduan"/>
+
+    <item
+
+
+        android:title=""/>
+
+    <item
+        android:id="@+id/bottom_streaming"
+        android:icon="@drawable/ic_video_cam_black"
+        android:title="Video"/>
+
+    <item
+        android:id="@+id/bottom_info"
+        android:icon="@drawable/ic_info_black"
+        android:title="Informasi"/>
 
 </menu>

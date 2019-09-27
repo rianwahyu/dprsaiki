@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.business.nation.dprnow.R;
+import com.business.nation.dprnow.util.NetworkState;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,7 +76,8 @@ public class AdapterAnggota extends BaseAdapter {
         textPosisiAnggota.setText(items.getPOSISI());
         textNIKAnggota.setText(items.getNIK());
 
-        String imageAnggota= "https://dprd.gresikkab.go.id/dprd/foto/"+items.getFOTO();
+        /*String imageAnggota= "https://dprd.gresikkab.go.id/dprd/foto/"+items.getFOTO();*/
+        String imageAnggota= NetworkState.getUrlDir()+ "foto/"+items.getFOTO();
 
         Glide.with(activity)
                 .load(imageAnggota)

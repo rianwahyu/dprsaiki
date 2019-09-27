@@ -11,12 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.business.nation.dprnow.R;
+import com.business.nation.dprnow.akd.AkdActivity;
 import com.business.nation.dprnow.anggota.AnggotaActivity;
 import com.business.nation.dprnow.aspirasi.DetailAspirasi;
+import com.business.nation.dprnow.naskah_akademik.NaskahActivity;
+import com.business.nation.dprnow.regulasi.RegulasiActivity;
 
 public class FragmentInformasi extends Fragment {
 
-    CardView cardAnggota;
+    CardView cardAnggota, cardNaskah, cardRegulasi, cardAKD;
 
     @Nullable
     @Override
@@ -35,6 +38,39 @@ public class FragmentInformasi extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AnggotaActivity.class);
+
+                ((v.getContext())).startActivity(intent);
+            }
+        });
+
+        cardNaskah = view.findViewById(R.id.cardNaskah);
+
+        cardNaskah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), NaskahActivity.class);
+
+                ((v.getContext())).startActivity(intent);
+            }
+        });
+
+        cardRegulasi = view.findViewById(R.id.cardRegulasi);
+
+        cardRegulasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RegulasiActivity.class);
+
+                ((v.getContext())).startActivity(intent);
+            }
+        });
+
+        cardAKD = view.findViewById(R.id.cardAKD);
+
+        cardAKD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AkdActivity.class);
 
                 ((v.getContext())).startActivity(intent);
             }

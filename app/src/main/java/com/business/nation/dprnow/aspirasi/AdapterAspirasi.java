@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.agenda.ModelAgenda;
+import com.business.nation.dprnow.util.NetworkState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,18 +53,27 @@ public class AdapterAspirasi extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             viewHolders.textTanggal.setText(mDataset.get(position).getTANGGAL());
             viewHolders.textJudul.setText(mDataset.get(position).getJUDUL());
-            viewHolders.textIsi.setText(mDataset.get(position).getISI());
+            /*viewHolders.textIsi.setText(mDataset.get(position).getISI());*/
             viewHolders.textStatus.setText(mDataset.get(position).getSTATUS());
             viewHolders.textLike.setText(mDataset.get(position).getLIKE());
             viewHolders.textUnlike.setText(mDataset.get(position).getUNLIKE());
             viewHolders.textComment.setText(mDataset.get(position).getCOMMENT());
 
-            String photo = "https://dprd.gresikkab.go.id/dprd/foto/aspirasi/"+mDataset.get(position).getFOTO();
+            String isi = mDataset.get(position).getISI();
+            String myHtmlStringDeskripsi = "<html><body><p align='justify'>" +
+                    isi +
+                    "</p></body></html>";
+            viewHolders.textIsi.loadData(myHtmlStringDeskripsi, "text/html", null);
+
+            /*String photo = "https://dprd.gresikkab.go.id/dprd/foto/aspirasi/"+mDataset.get(position).getFOTO();*/
+            String photo = NetworkState.getUrlDir()+"foto/aspirasi/"+mDataset.get(position).getFOTO();
             Glide.with(context)
                     .load(photo)
                     .into(viewHolders.imgAspirasi);
 
             final String id = mDataset.get(position).getID();
+
+            viewHolders.textUser.setText(mDataset.get(position).getUSER());
 
             viewHolders.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -82,9 +93,10 @@ public class AdapterAspirasi extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public  class ViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView textTanggal, textJudul, textIsi, textStatus, textLike, textUnlike, textComment;
+        TextView textTanggal, textJudul,  textStatus, textLike, textUnlike, textComment, textUser;
         ImageView imgAspirasi;
         CardView cardView;
+        WebView textIsi;
         public ViewHolders(@NonNull View itemView) {
             super(itemView);
 
@@ -98,6 +110,8 @@ public class AdapterAspirasi extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             imgAspirasi = itemView.findViewById(R.id.imgAspirasi);
             cardView = itemView.findViewById(R.id.cardAspirasi);
+
+            textUser = itemView.findViewById(R.id.textUserAspirasi);
         }
 
         @Override

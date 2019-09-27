@@ -20,6 +20,8 @@ import com.android.volley.toolbox.Volley;
 import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.pengaduan.AdapterPengaduan;
 import com.business.nation.dprnow.pengaduan.ModelPengaduan;
+import com.business.nation.dprnow.util.NetworkState;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +35,7 @@ public class fragmentHomeAspirasi extends Fragment implements ItemClickListener 
     RecyclerView recyclerView;
     private List<ModelAspirasi> listPengaduan = new ArrayList<ModelAspirasi>();
     AdapterAspirasi adapter;
-
+    ShimmerFrameLayout shimmerFrameLayout;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +48,10 @@ public class fragmentHomeAspirasi extends Fragment implements ItemClickListener 
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rcAspirasi);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer);
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        shimmerFrameLayout.startShimmer();
+        recyclerView.setVisibility(View.INVISIBLE);
         listPengaduan = new ArrayList<ModelAspirasi>();
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -57,11 +63,17 @@ public class fragmentHomeAspirasi extends Fragment implements ItemClickListener 
         adapter.setClickListener(this);
     }
 
+
+
     private void initAspirasi() {
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_aspirasi/";
+        /*String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_aspirasi/";*/
+        String url = NetworkState.getUrl()+"get_data_aspirasi/";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                shimmerFrameLayout.setVisibility(View.INVISIBLE);
+                shimmerFrameLayout.stopShimmer();
+                recyclerView.setVisibility(View.VISIBLE);
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject asp = response.getJSONObject(i);
@@ -103,7 +115,10 @@ public class fragmentHomeAspirasi extends Fragment implements ItemClickListener 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Eror", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                shimmerFrameLayout.setVisibility(View.INVISIBLE);
+                shimmerFrameLayout.stopShimmer();
+                recyclerView.setVisibility(View.VISIBLE);
             }
         });
 

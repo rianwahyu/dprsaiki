@@ -7,13 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.agenda.AdapterAgenda;
 import com.business.nation.dprnow.aspirasi.DetailAspirasi;
 import com.business.nation.dprnow.aspirasi.ModelAspirasi;
+import com.business.nation.dprnow.util.NetworkState;
 
 import java.util.List;
 
@@ -47,8 +51,16 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolders.textTanggal.setText(mDataset.get(position).getTANGGAL());
             viewHolders.textJam.setText(mDataset.get(position).getJAM());
             viewHolders.textJudul.setText(mDataset.get(position).getJUDUL());
-            viewHolders.textIsi.setText(mDataset.get(position).getDESKRIPSI());
+
             viewHolders.textTempat.setText(mDataset.get(position).getTEMPAT());
+
+            String isi = mDataset.get(position).getDESKRIPSI();
+            /*String myHtmlStringDeskripsi = "<html><body><p align='justify'>" +
+                    isi +
+                    "</p></body></html>";
+            viewHolders.textIsi.loadData(myHtmlStringDeskripsi, "text/html", null);*/
+
+            viewHolders.textIsi.setText(isi);
 
             final String id = mDataset.get(position).getID();
 
@@ -60,6 +72,11 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     ((v.getContext())).startActivity(intent);
                 }
             });
+
+            String photo = NetworkState.getUrlDir()+"foto/beritadprd/"+mDataset.get(position).getFILE_FOTO();
+            Glide.with(context)
+                    .load(photo)
+                    .into(viewHolders.imgBerita);
         }
     }
 
@@ -69,8 +86,10 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public static class ViewHolders extends RecyclerView.ViewHolder{
-        TextView textTanggal, textJam, textJudul, textIsi, textTempat;
+        TextView textTanggal, textJam, textJudul, textTempat;
         FrameLayout frameLayout;
+        TextView textIsi;
+        ImageView imgBerita;
         public ViewHolders(@NonNull View itemView) {
             super(itemView);
             textTanggal = itemView.findViewById(R.id.textTanggalBerita);
@@ -80,6 +99,8 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             textTempat = itemView.findViewById(R.id.textTempatBerita);
 
             frameLayout = itemView.findViewById(R.id.frameBerita);
+
+            imgBerita = itemView.findViewById(R.id.imgBerita);
         }
     }
 

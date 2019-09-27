@@ -75,7 +75,7 @@
 
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <!--<android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -114,20 +114,14 @@
 
                 </android.support.constraint.ConstraintLayout>
 
-            </android.support.v7.widget.CardView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            </android.support.v7.widget.CardView>-->
 
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:id="@+id/cardNaskah">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -164,11 +158,63 @@
 
             </android.support.v7.widget.CardView>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:id="@+id/cardAKD">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:layout_width="78dp"
+                        android:layout_height="78dp"
+                        tools:ignore="MissingConstraints"
+                        android:src="@drawable/organization"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:id="@+id/imgOrg"
+                        android:layout_marginTop="5dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:ignore="MissingConstraints"
+                        android:text="STRUKTUR AKD"
+                        app:layout_constraintTop_toBottomOf="@id/imgOrg"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="5dp"
+                        android:textSize="8pt"/>
+
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:id="@+id/cardRegulasi">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -191,7 +237,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:ignore="MissingConstraints"
-                        android:text="LEGISLASI"
+                        android:text="REGULASI"
                         app:layout_constraintTop_toBottomOf="@id/imgLegislasi"
                         android:layout_marginTop="5dp"
                         app:layout_constraintRight_toRightOf="parent"
@@ -207,51 +253,10 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <android.support.v7.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="5dp">
-
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:background="@color/white">
-
-                    <ImageView
-                        android:layout_width="78dp"
-                        android:layout_height="78dp"
-                        tools:ignore="MissingConstraints"
-                        android:src="@drawable/ic_pers"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:id="@+id/imgPers"
-                        android:layout_marginTop="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:ignore="MissingConstraints"
-                        android:text="PERS"
-                        app:layout_constraintTop_toBottomOf="@id/imgPers"
-                        android:layout_marginTop="5dp"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="8pt"/>
-
-
-                </android.support.constraint.ConstraintLayout>
-
-            </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
@@ -294,7 +299,7 @@
 
             </android.support.v7.widget.CardView>
 
-        </LinearLayout>
+        </LinearLayout>-->
 
 
     </LinearLayout>

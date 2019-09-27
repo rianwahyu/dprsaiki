@@ -22,6 +22,7 @@ import com.business.nation.dprnow.R;
 import com.business.nation.dprnow.aspirasi.ModelAspirasi;
 import com.business.nation.dprnow.streaming.AdapterStreaming;
 import com.business.nation.dprnow.streaming.ModelStreaming;
+import com.business.nation.dprnow.util.NetworkState;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,7 +60,8 @@ public class FragmentStreaming extends Fragment {
     }
 
     private void initStreaming() {
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_vidio_youtube/";
+        /*String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_vidio_youtube/";*/
+        String url = NetworkState.getUrl()+ "get_data_vidio_youtube/";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -71,7 +73,9 @@ public class FragmentStreaming extends Fragment {
                         String NAMA =asp.getString("NAMA");
                         String URL =asp.getString("URL");
 
-                        ModelStreaming ms = new ModelStreaming(ID, NAMA, URL);
+                        String parse = URL.substring(30);
+
+                        ModelStreaming ms = new ModelStreaming(ID, NAMA, parse);
                         listStreaming.add(ms);
 
                     } catch (JSONException e) {
