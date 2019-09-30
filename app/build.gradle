@@ -61,6 +61,7 @@ dependencies {
     }
     implementation 'org.apache.httpcomponents:httpclient-android:4.3.5'
     implementation 'es.voghdev.pdfviewpager:library:1.0.6'
-
+    implementation 'pub.devrel:easypermissions:0.2.0'
+    implementation 'com.weiwangcn.betterspinner:library:1.1.0'
 
 }

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -20,9 +21,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -31,9 +35,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.business.nation.dprnow.anggota.AnggotaActivity;
+import com.business.nation.dprnow.anggota.ModelAnggota;
+import com.business.nation.dprnow.aspirasi.CatModel;
 import com.business.nation.dprnow.util.DialogHelper;
+import com.business.nation.dprnow.util.NetworkState;
 import com.business.nation.dprnow.util.PermissionHelper;
+import com.business.nation.dprnow.util.ServiceHandler;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -41,6 +51,10 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -54,7 +68,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class TambahAspirasiActivity extends AppCompatActivity {
+public class TambahAspirasiActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText etJudulAspirasi, etDeskripsiAspirasi;
     Button btnSubmit;
@@ -62,19 +76,19 @@ public class TambahAspirasiActivity extends AppCompatActivity {
     Context context = TambahAspirasiActivity.this;
     AlertDialog successDialog;
 
-    int bitmap_size = 80;
-    int max_resolution_image = 800;
-    Uri fileUri;
     Bitmap bitmap, decoded;
     PermissionHelper permissionHelper;
-    public final int REQUEST_CAMERA = 0;
-    public final int SELECT_FILE = 1;
-    Intent intent;
-    private RequestQueue rQueue;
 
     private final int GALLERY = 1;
 
-    private ArrayList<HashMap<String, String>> arraylist;
+    private Spinner spinner;
+    // array list for spinner adapter
+    private ArrayList<CatModel> listCategory;
+    ProgressDialog pDialog;
+
+    String ids="";
+
+    private String URL_CATEGORIES = NetworkState.getUrl()+"get_data_kategori_pengaduan.php";
 
 
     @Override
@@ -98,12 +112,18 @@ public class TambahAspirasiActivity extends AppCompatActivity {
         etDeskripsiAspirasi = findViewById(R.id.et_deskripsiAspirasi);
         imgFoto = findViewById(R.id.imgFoto);
 
+        spinner = (Spinner) findViewById(R.id.spinCategory);
+
+        listCategory = new ArrayList<CatModel>();
+
+        // spinner item select listener
+        spinner.setOnItemSelectedListener(this);
+
         requestMultiplePermissions();
 
         imgFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //selectImage();
 
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -127,50 +147,141 @@ public class TambahAspirasiActivity extends AppCompatActivity {
                 if (judul.isEmpty()||deskripsi.isEmpty()){
                     Toast.makeText(context, "Mohon Melengkapi Form" , Toast.LENGTH_SHORT).show();
                 }else{
-                    //prosesTambah(judul,deskripsi);
-                    //prosesUpload(judul,deskripsi);
                     uploadAspirasi(judul,deskripsi);
                 }
             }
         });
+
+        //new GetCategories().execute();
+        initCagegory();
     }
 
-
-
-    private void selectImage() {
-        //linearFotoKTP.setVisibility(View.GONE);
-        imgFoto.setImageResource(0);
-        final CharSequence[] items = {"Ambil Foto", "Pilih dari Libary",
-                "Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Tambah KTP");
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
+    private void initCagegory() {
+        String url = NetworkState.getUrl()+"get_data_kategori_pengaduan/";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int item) {
-                if (items[item].equals("Ambil Foto")) {
-                    intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-                    StrictMode.setVmPolicy(builder.build());
-                    fileUri = getOutputMediaFileUri();
-                    intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, fileUri);
-                    startActivityForResult(intent, REQUEST_CAMERA);
-                } else if (items[item].equals("Pilih dari Libary")) {
-                    intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_FILE);
-                } else if (items[item].equals("Cancel")) {
-                    dialogInterface.dismiss();
+            public void onResponse(JSONArray response) {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject asp = response.getJSONObject(i);
+
+                        String ID =asp.getString("ID");
+                        String NAMA =asp.getString("NAMA");
+
+
+
+                        CatModel mb = new CatModel();
+                        mb.setID(ID);
+                        mb.setNAMA(NAMA);
+
+                        listCategory.add(mb);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+                //adapterAnggota.notifyDataSetChanged();
+                populateSpinner();
+                /*Toast.makeText(getActivity(), "Ada", Toast.LENGTH_SHORT).show();*/
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(TambahAspirasiActivity.this, "Eror", Toast.LENGTH_SHORT).show();
             }
         });
-        builder.show();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(TambahAspirasiActivity.this);
+        requestQueue.add(jsonArrayRequest);
     }
 
-    public Uri getOutputMediaFileUri() {
-        return Uri.fromFile(getOutputMediaFile());
+
+
+    private class GetCategories extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(TambahAspirasiActivity.this);
+            pDialog.setMessage("Fetching food categories..");
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            ServiceHandler jsonParser = new ServiceHandler();
+            String json = jsonParser.makeServiceCall(URL_CATEGORIES, ServiceHandler.GET);
+            if (json != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(json);
+                    if (jsonObj != null) {
+                        JSONArray categories = jsonObj
+                                .getJSONArray("");
+
+                        for (int i = 0; i < categories.length(); i++) {
+                            JSONObject catObj = (JSONObject) categories.get(i);
+                            CatModel cat = new CatModel(catObj.getString("ID"),
+                                    catObj.getString("NAMA"));
+                            listCategory.add(cat);
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                Log.e("JSON Data", "Didn't receive any data from server!");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+
+            populateSpinner();
+        }
     }
+
+    private void populateSpinner() {
+        List<String> lables = new ArrayList<String>();
+
+        for (int i = 0; i < listCategory.size(); i++) {
+            lables.add(listCategory.get(i).getNAMA());
+        }
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lables);
+
+        // Drop down layout style - list view with radio button
+        spinnerAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(spinnerAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        CatModel cm = listCategory.get(position);
+        ids = cm.getID();
+        /*Toast.makeText(
+                getApplicationContext(),
+                ids + " Selected" ,
+                Toast.LENGTH_LONG).show();*/
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+
+
 
     private static File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "");
@@ -232,165 +343,7 @@ public class TambahAspirasiActivity extends AppCompatActivity {
                 }
             }
         }
-        /*super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_CAMERA) {
-                try {
-                    Log.e("CAMERA", fileUri.getPath());
-                    bitmap = BitmapFactory.decodeFile(fileUri.getPath());
-                    setToImageView(getResizedBitmap(bitmap, max_resolution_image));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            } else if (requestCode == SELECT_FILE && data != null && data.getData() != null) {
-                try {
-                    // mengambil gambar dari Gallery
-                    bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), data.getData());
-                    setToImageView(getResizedBitmap(bitmap, max_resolution_image));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }*/
     }
-
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        float bitmapRatio = (float) width / (float) height;
-        if (bitmapRatio > 1) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
-        }
-        return Bitmap.createScaledBitmap(image, width, height, true);
-    }
-
-    private void setToImageView(Bitmap bmp) {
-        //compress image
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, bytes);
-        decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
-        //menampilkan gambar yang dipilih dari camera/gallery ke ImageView
-        /*linearFotoKTP.setVisibility(View.VISIBLE);*/
-
-        imgFoto.setImageBitmap(decoded);
-    }
-
-    public String getStringImage(Bitmap bmp) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, baos);
-        byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
-    }
-
-    /*private void prosesTambah(final String judul,final String deskripsi) {
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/input_aspirasi";
-        final ProgressDialog loading = ProgressDialog.show(context,"Upload","Please Wait..", false,false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                if (response.equals("true")){
-                    loading.dismiss();
-                    successDialog = DialogHelper.successDialog(context,"Data Aspirasi Berhasil disimpan", new DialogHelper.OnOk(){
-                        @Override
-                        public void onOk(AlertDialog alertDialog, View view) {
-                            alertDialog.dismiss();
-                            finish();
-                        }
-                    });
-                    successDialog.show();
-                }else {
-                    loading.dismiss();
-                    Toast.makeText(context,"gagal", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                loading.dismiss();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams(){
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("judul", judul);
-                params.put("kategori", "aspirasi");
-                params.put("deskripsi", deskripsi);
-                params.put("user", "nimas");
-                params.put("foto[]", getStringImage(decoded));
-                return params;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(stringRequest, "json_obj_req");
-    }
-
-    private void prosesUpload(final String judul, final String deskripsi) {
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/input_aspirasi";
-        final ProgressDialog loading = ProgressDialog.show(context,"Upload","Please Wait..", false,false);
-        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
-            @Override
-            public void onResponse(NetworkResponse response) {
-                Log.d("ressssssoo",new String(response.data));
-                rQueue.getCache().clear();
-                String res = new String(response.data);
-                if (res.equals("true")){
-                    Toast.makeText(context, "Sukses", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(context, "Gagal", Toast.LENGTH_SHORT).show();
-                }
-
-                *//*loading.dismiss();
-                successDialog = DialogHelper.successDialog(context,"Data Aspirasi Berhasil disimpan", new DialogHelper.OnOk(){
-                    @Override
-                    public void onOk(AlertDialog alertDialog, View view) {
-                        alertDialog.dismiss();
-                        finish();
-                    }
-                });
-                successDialog.show();*//*
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                loading.dismiss();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("judul", judul);
-                params.put("kategori", "aspirasi");
-                params.put("deskripsi", deskripsi);
-                params.put("user", "nimas");
-                return params;
-            }
-
-            @Override
-            protected Map<String, DataPart> getByteData() {
-                Map<String, DataPart> params = new HashMap<>();
-                long imagename = System.currentTimeMillis();
-                params.put("foto[]", new DataPart( getFileDataFromDrawable(bitmap)));
-                return params;
-            }
-        };
-
-        volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(
-                0,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        rQueue = Volley.newRequestQueue(context);
-        rQueue.add(volleyMultipartRequest);
-    }*/
 
     public byte[] getFileDataFromDrawable(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -441,7 +394,8 @@ public class TambahAspirasiActivity extends AppCompatActivity {
     }
 
     private void uploadAspirasi(final String judul, final String deskripsi){
-        String url = "https://dprd.gresikkab.go.id/dprd/auth/input_aspirasi";
+        /*String url = "https://dprd.gresikkab.go.id/dprd/auth/input_aspirasi";*/
+        String url = NetworkState.getUrl()+"input_aspirasi";
         final ProgressDialog loading = ProgressDialog.show(context,"Upload","Please Wait..", false,false);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
             @Override
@@ -481,7 +435,7 @@ public class TambahAspirasiActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("judul", judul);
-                params.put("kategori", "aspirasi");
+                params.put("kategori", ids);
                 params.put("deskripsi", deskripsi);
                 params.put("user", "nimas");
                 return params;

@@ -21,7 +21,7 @@ public class DialogHelper {
     private static AlertDialog staticdialog;
     private static AlertDialog noInternetdialog;
 
-    /*public static AlertDialog loading(Context context, String message) {
+    public static AlertDialog loading(Context context, String message) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null);
         TextView textView = view.findViewById(R.id.textName);
@@ -29,7 +29,7 @@ public class DialogHelper {
         return new AlertDialog.Builder(context)
                 .setView(view)
                 .create();
-    }*/
+    }
 
     public static AlertDialog YesNo(Context context, String message, String title, DialogInterface.OnClickListener dialogInterface) {
 
