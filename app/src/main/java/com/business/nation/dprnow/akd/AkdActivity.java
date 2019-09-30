@@ -8,8 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -18,9 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.business.nation.dprnow.R;
-import com.business.nation.dprnow.anggota.AdapterAnggota;
-import com.business.nation.dprnow.anggota.DetailAnggota;
-import com.business.nation.dprnow.anggota.ModelAnggota;
+import com.business.nation.dprnow.aspirasi.ItemClickListener;
 import com.business.nation.dprnow.util.NetworkState;
 
 import org.json.JSONArray;
@@ -30,7 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AkdActivity extends AppCompatActivity {
+public class AkdActivity extends AppCompatActivity implements ItemClickListener {
 
     RecyclerView recyclerView;
     private List<ModelAkd> listAnggota = new ArrayList<ModelAkd>();
@@ -40,7 +36,7 @@ public class AkdActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_akd);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_back_black);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -60,6 +56,7 @@ public class AkdActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         adapterAnggota = new AdapterAkd(AkdActivity.this, listAnggota);
         recyclerView.setAdapter(adapterAnggota);
+        adapterAnggota.setClickListener(this);
         initAKD();
 
     }
@@ -110,5 +107,15 @@ public class AkdActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        ModelAkd ma = listAnggota.get(position);
+
+        String id = ma.getID();
+        Intent intent = new Intent(AkdActivity.this, DetailAkdActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 }

@@ -202,7 +202,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="10dp"
             android:textSize="18sp"
-            android:textColor="#304FFE"/>
+            android:textColor="#304FFE"
+            android:id="@+id/textDetailAKD"/>
 
     </android.support.constraint.ConstraintLayout>
 

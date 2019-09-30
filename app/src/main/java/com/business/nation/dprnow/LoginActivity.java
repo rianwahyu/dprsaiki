@@ -1,5 +1,6 @@
 package com.business.nation.dprnow;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.business.nation.dprnow.util.AppController;
-import com.business.nation.dprnow.util.DialogHelper;
 import com.business.nation.dprnow.util.NetworkState;
 import com.business.nation.dprnow.util.SessionManager;
 
@@ -60,8 +60,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void processLogin(final String username, final String password) {
         String url = NetworkState.getUrl()+ "login" ;
-        dialogLogin = DialogHelper.loading(this, "Logging in..");
-        dialogLogin.show();
+        /*dialogLogin = DialogHelper.loading(this, "Logging in..");
+        dialogLogin.show();*/
+
+        final ProgressDialog loading = ProgressDialog.show(context,"Logging In","Please Wait..", false,false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -77,14 +79,16 @@ public class LoginActivity extends AppCompatActivity {
                         String hasil = jObj.getString("hasil");
                         Toast.makeText(context, "Berhasil Login", Toast.LENGTH_SHORT).show();
                         new SessionManager(context).login(usernames, passwords, pesan,id_user, hasil);
-                        dialogLogin.dismiss();
+                        /*dialogLogin.dismiss();*/
+                        loading.dismiss();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                dialogLogin.dismiss();
+                loading.dismiss();
+                /*dialogLogin.dismiss();*/
             }
         }, new Response.ErrorListener() {
             @Override

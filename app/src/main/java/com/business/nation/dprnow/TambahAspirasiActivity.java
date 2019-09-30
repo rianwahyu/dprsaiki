@@ -3,22 +3,17 @@ package com.business.nation.dprnow;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,13 +32,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.business.nation.dprnow.anggota.AnggotaActivity;
-import com.business.nation.dprnow.anggota.ModelAnggota;
 import com.business.nation.dprnow.aspirasi.CatModel;
 import com.business.nation.dprnow.util.DialogHelper;
 import com.business.nation.dprnow.util.NetworkState;
 import com.business.nation.dprnow.util.PermissionHelper;
-import com.business.nation.dprnow.util.ServiceHandler;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -56,7 +48,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -96,7 +87,7 @@ public class TambahAspirasiActivity extends AppCompatActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_aspirasi);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_back_black);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -112,7 +103,7 @@ public class TambahAspirasiActivity extends AppCompatActivity implements Adapter
         etDeskripsiAspirasi = findViewById(R.id.et_deskripsiAspirasi);
         imgFoto = findViewById(R.id.imgFoto);
 
-        spinner = (Spinner) findViewById(R.id.spinCategory);
+        spinner = findViewById(R.id.spinCategory);
 
         listCategory = new ArrayList<CatModel>();
 
@@ -195,57 +186,6 @@ public class TambahAspirasiActivity extends AppCompatActivity implements Adapter
     }
 
 
-
-    private class GetCategories extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(TambahAspirasiActivity.this);
-            pDialog.setMessage("Fetching food categories..");
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            ServiceHandler jsonParser = new ServiceHandler();
-            String json = jsonParser.makeServiceCall(URL_CATEGORIES, ServiceHandler.GET);
-            if (json != null) {
-                try {
-                    JSONObject jsonObj = new JSONObject(json);
-                    if (jsonObj != null) {
-                        JSONArray categories = jsonObj
-                                .getJSONArray("");
-
-                        for (int i = 0; i < categories.length(); i++) {
-                            JSONObject catObj = (JSONObject) categories.get(i);
-                            CatModel cat = new CatModel(catObj.getString("ID"),
-                                    catObj.getString("NAMA"));
-                            listCategory.add(cat);
-                        }
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            } else {
-                Log.e("JSON Data", "Didn't receive any data from server!");
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (pDialog.isShowing())
-                pDialog.dismiss();
-
-            populateSpinner();
-        }
-    }
-
     private void populateSpinner() {
         List<String> lables = new ArrayList<String>();
 
@@ -324,7 +264,7 @@ public class TambahAspirasiActivity extends AppCompatActivity implements Adapter
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == this.RESULT_CANCELED) {
+        if (resultCode == RESULT_CANCELED) {
             return;
         }
         if (requestCode == GALLERY) {

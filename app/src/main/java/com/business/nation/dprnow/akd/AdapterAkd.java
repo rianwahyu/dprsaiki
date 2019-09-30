@@ -1,23 +1,15 @@
 package com.business.nation.dprnow.akd;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.business.nation.dprnow.R;
-import com.business.nation.dprnow.aspirasi.DetailAspirasi;
 import com.business.nation.dprnow.aspirasi.ItemClickListener;
-import com.business.nation.dprnow.aspirasi.ModelAspirasi;
-import com.business.nation.dprnow.util.NetworkState;
 
 import java.util.List;
 
@@ -46,7 +38,7 @@ public class AdapterAkd extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
         if (viewHolder instanceof ViewHolders){
             ViewHolders viewHolders = (ViewHolders) viewHolder;
 
@@ -55,6 +47,13 @@ public class AdapterAkd extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             viewHolders.textKeuangan.setText(mDataset.get(position).getKEUANGAN());
             viewHolders.textHumas.setText(mDataset.get(position).getHUMAS());
             viewHolders.textPersidangan.setText(mDataset.get(position).getPERSIDANGAN());
+
+            viewHolders.teextAKD.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemClickListener != null) itemClickListener.onClick(view, position);
+                }
+            });
 
         }
     }
@@ -66,7 +65,7 @@ public class AdapterAkd extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public  class ViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView textSekretaris, textUmum,  textKeuangan, textHumas, textPersidangan;
+        TextView textSekretaris, textUmum,  textKeuangan, textHumas, textPersidangan, teextAKD;
         public ViewHolders(@NonNull View itemView) {
             super(itemView);
 
@@ -76,6 +75,7 @@ public class AdapterAkd extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             textKeuangan = itemView.findViewById(R.id.textNamaKeuangan);
             textHumas = itemView.findViewById(R.id.textNamaHumas);
             textPersidangan = itemView.findViewById(R.id.textNamaPersidangan);
+            teextAKD = itemView.findViewById(R.id.textDetailAKD);
         }
 
         @Override
