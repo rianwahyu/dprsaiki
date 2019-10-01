@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,8 @@ public class fragmentHomeAspirasi extends Fragment implements ItemClickListener 
     private List<ModelAspirasi> listPengaduan = new ArrayList<ModelAspirasi>();
     AdapterAspirasi adapter;
     ShimmerFrameLayout shimmerFrameLayout;
+    EditText et_search;
+    ImageView imgSearch;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,6 +52,8 @@ public class fragmentHomeAspirasi extends Fragment implements ItemClickListener 
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rcAspirasi);
+        et_search = view.findViewById(R.id.et_search);
+        imgSearch = view.findViewById(R.id.imgSearch);
         shimmerFrameLayout = view.findViewById(R.id.shimmer);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
         shimmerFrameLayout.startShimmer();
@@ -61,9 +67,20 @@ public class fragmentHomeAspirasi extends Fragment implements ItemClickListener 
         recyclerView.setAdapter(adapter);
         initAspirasi();
         adapter.setClickListener(this);
+
+        imgSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String query = et_search.getText().toString();
+
+                cariAspirasi(query);
+            }
+        });
     }
 
+    private void cariAspirasi(String query) {
 
+    }
 
     private void initAspirasi() {
         /*String url = "https://dprd.gresikkab.go.id/dprd/auth/get_data_aspirasi/";*/

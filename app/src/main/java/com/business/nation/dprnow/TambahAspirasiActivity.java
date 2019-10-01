@@ -95,6 +95,7 @@ public class TambahAspirasiActivity extends AppCompatActivity implements Adapter
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(TambahAspirasiActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -146,6 +147,8 @@ public class TambahAspirasiActivity extends AppCompatActivity implements Adapter
         //new GetCategories().execute();
         initCagegory();
     }
+
+
 
     private void initCagegory() {
         String url = NetworkState.getUrl()+"get_data_kategori_pengaduan/";
@@ -330,11 +333,11 @@ public class TambahAspirasiActivity extends AppCompatActivity implements Adapter
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        startActivity(new Intent(TambahAspirasiActivity.this, MainActivity.class));
         finish();
     }
 
     private void uploadAspirasi(final String judul, final String deskripsi){
-        /*String url = "https://dprd.gresikkab.go.id/dprd/auth/input_aspirasi";*/
         String url = NetworkState.getUrl()+"input_aspirasi";
         final ProgressDialog loading = ProgressDialog.show(context,"Upload","Please Wait..", false,false);
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
@@ -347,6 +350,7 @@ public class TambahAspirasiActivity extends AppCompatActivity implements Adapter
                         @Override
                         public void onOk(AlertDialog alertDialog, View view) {
                             alertDialog.dismiss();
+                            startActivity(new Intent(TambahAspirasiActivity.this, MainActivity.class));
                             finish();
                         }
                     });
@@ -365,12 +369,6 @@ public class TambahAspirasiActivity extends AppCompatActivity implements Adapter
         })
         {
 
-            /*
-             * If you want to add more parameters with the image
-             * you can do it here
-             * here we have only one parameter with the image
-             * which is tags
-             * */
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -381,9 +379,6 @@ public class TambahAspirasiActivity extends AppCompatActivity implements Adapter
                 return params;
             }
 
-            /*
-             * Here we are passing image by renaming it with a unique name
-             * */
             @Override
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();

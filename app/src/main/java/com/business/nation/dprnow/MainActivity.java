@@ -2,6 +2,7 @@ package com.business.nation.dprnow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -15,11 +16,17 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.business.nation.dprnow.fragment.FragmentInformasi;
 import com.business.nation.dprnow.komisi.FragmentPengaduanList;
 import com.business.nation.dprnow.fragment.FragmentStreaming;
 import com.business.nation.dprnow.fragment.fragmentHome;
+import com.business.nation.dprnow.util.SessionManager;
+import com.shashank.sony.fancydialoglib.Animation;
+import com.shashank.sony.fancydialoglib.FancyAlertDialog;
+import com.shashank.sony.fancydialoglib.FancyAlertDialogListener;
+import com.shashank.sony.fancydialoglib.Icon;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigation = (BottomNavigationView) findViewById(R.id.navigation);
-        //BottomNavigationHelper.disableShiftMode(bottomNavigation);
-        //bottomNavigation.inflateMenu(R.menu.main);
         fragmentManager = getSupportFragmentManager();
         fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(new View.OnClickListener() {
@@ -77,28 +82,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*bottomNavigationRight = (BottomNavigationView) findViewById(R.id.bottomnavRigth);
-        //BottomNavigationHelper.disableShiftMode(bottomNavigationRight);
-
-        bottomNavigationRight.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                switch (id){
-                    case R.id.bottom_streaming:
-                        fragmentRight = new FragmentStreaming();
-                        break;
-
-                    case R.id.bottom_info:
-                        fragmentRight = new FragmentInformasi();
-                        break;
-                }
-
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragmentContainer, fragmentRight).commit();
-                return true;
-            }
-        });*/
     }
 
     private void loadDialog() {
@@ -116,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(context, TambahBeritaActivity.class));
+                finish();
                 alertDialog.dismiss();
             }
         });
@@ -125,8 +109,41 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(context, TambahAspirasiActivity.class));
+                finish();
                 alertDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        loadExit();
+    }
+
+    private void loadExit() {
+        new FancyAlertDialog.Builder(this)
+                .setTitle("Keluar Aplikasi")
+                .setBackgroundColor(Color.parseColor("#DC110E"))  //Don't pass R.color.colorvalue
+                .setMessage("Apakah Anda Ingin Keluar dari Aplikasi DPR Now ?")
+                .setNegativeBtnText("Batal")
+                .setPositiveBtnBackground(Color.parseColor("#FF4081"))  //Don't pass R.color.colorvalue
+                .setPositiveBtnText("Ya")
+                .setNegativeBtnBackground(Color.parseColor("#FFA9A7A8"))  //Don't pass R.color.colorvalue
+                .setAnimation(Animation.POP)
+                .isCancellable(true)
+                .setIcon(R.drawable.ic_info_white, Icon.Visible)
+                .OnPositiveClicked(new FancyAlertDialogListener() {
+                    @Override
+                    public void OnClick() {
+                        finish();
+                    }
+                })
+                .OnNegativeClicked(new FancyAlertDialogListener() {
+                    @Override
+                    public void OnClick() {
+                    }
+                })
+                .build();
     }
 }

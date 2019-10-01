@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="10dp"
-    android:id="@+id/cardAspirasi">
+    android:layout_marginTop="5dp"
+    android:id="@+id/cardAspirasi"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -56,19 +59,18 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
             android:id="@+id/textTanggalAspirasi"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/imgAspirasi"
-            android:src="@drawable/abstrac"
             app:layout_constraintTop_toBottomOf="@id/btnAspirasi"
             android:layout_marginTop="10dp"
-            android:scaleType="fitXY"/>
+            android:scaleType="centerInside"/>
 
         <TextView
             android:layout_width="match_parent"

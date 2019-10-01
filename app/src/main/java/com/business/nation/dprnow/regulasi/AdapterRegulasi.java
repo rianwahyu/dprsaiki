@@ -25,6 +25,8 @@ public class AdapterRegulasi extends BaseAdapter {
         this.evenprolist = evenprolist;
     }
 
+
+
     @Override
     public int getCount() {
         return evenprolist.size();
@@ -62,9 +64,6 @@ public class AdapterRegulasi extends BaseAdapter {
 
         textNamaNaskah.setText(items.getNAMA());
         textIsiNaskah.setText(items.getISI());
-
-
-
 
         return convertView;
     }

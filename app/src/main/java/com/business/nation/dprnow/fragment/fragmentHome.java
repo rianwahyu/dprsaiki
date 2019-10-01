@@ -41,13 +41,11 @@ public class fragmentHome extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        et_search = view.findViewById(R.id.et_search);
-        imgSearch = view.findViewById(R.id.imgSearch);
+        /*et_search = view.findViewById(R.id.et_search);
+        imgSearch = view.findViewById(R.id.imgSearch);*/
 
 
         //setupViewPager(viewPager);
-
-
         tabLayout = (TabLayout) view.findViewById(R.id.tabHome);
         tabLayout.addTab(tabLayout.newTab().setText("Aspirasi"));
         tabLayout.addTab(tabLayout.newTab().setText("Berita"));
@@ -74,14 +72,6 @@ public class fragmentHome extends Fragment {
             }
         });
 
-        imgSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String query = et_search.getText().toString();
-
-                Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
-            }
-        });
         //tabLayout.setupWithViewPager(viewPager);
 
     }

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.business.nation.dprnow"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -63,5 +63,6 @@ dependencies {
     implementation 'es.voghdev.pdfviewpager:library:1.0.6'
     implementation 'pub.devrel:easypermissions:0.2.0'
     implementation 'com.weiwangcn.betterspinner:library:1.1.0'
+    implementation 'com.github.Shashank02051997:FancyAlertDialog-Android:0.1'
 
 }

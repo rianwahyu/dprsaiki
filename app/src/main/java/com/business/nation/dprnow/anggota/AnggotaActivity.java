@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +18,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.business.nation.dprnow.R;
+import com.business.nation.dprnow.aspirasi.ItemClickListener;
 import com.business.nation.dprnow.berita.ModelBerita;
+import com.business.nation.dprnow.regulasi.RegulasiActivity;
 import com.business.nation.dprnow.util.NetworkState;
 
 import org.json.JSONArray;
@@ -26,11 +30,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnggotaActivity extends AppCompatActivity {
+public class AnggotaActivity extends AppCompatActivity implements ItemClickListener {
 
-    ListView listview;
+    RecyclerView recyclerView;
     private List<ModelAnggota> listAnggota = new ArrayList<ModelAnggota>();
-    AdapterAnggota adapterAnggota;
+    AdapterAnggota2 adapterAnggota;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,32 +51,16 @@ public class AnggotaActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AnggotaActivity.this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listAnggota = new ArrayList<ModelAnggota>();
-        listview = findViewById(R.id.listAnggota);
-        adapterAnggota = new AdapterAnggota(AnggotaActivity.this, listAnggota);
-        listview.setAdapter(adapterAnggota);
+        recyclerView = findViewById(R.id.listAnggota);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapterAnggota = new AdapterAnggota2(AnggotaActivity.this, listAnggota);
+        recyclerView.setAdapter(adapterAnggota);
         initAnggota();
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(AnggotaActivity.this, DetailAnggota.class);
-                intent.putExtra("id_anggota", listAnggota.get(position).getID());
-                intent.putExtra("NAMA", listAnggota.get(position).getNAMA());
-                intent.putExtra("TGL_LAHIR", listAnggota.get(position).getTGL_LAHIR());
-                intent.putExtra("TEMPAT_LAHIR", listAnggota.get(position).getTEMPAT_LAHIR());
-                intent.putExtra("ALAMAT", listAnggota.get(position).getALAMAT());
-                intent.putExtra("EMAIL", listAnggota.get(position).getEMAIL());
-                intent.putExtra("NO_HP", listAnggota.get(position).getNO_HP());
-                intent.putExtra("AGAMA", listAnggota.get(position).getAGAMA());
-                intent.putExtra("PARTAI", listAnggota.get(position).getPARTAI());
-                intent.putExtra("FOTO", listAnggota.get(position).getFOTO());
-                intent.putExtra("POSISI", listAnggota.get(position).getPOSISI());
-                intent.putExtra("NIK", listAnggota.get(position).getNIK());
-
-                startActivity(intent);
-            }
-        });
+        adapterAnggota.setClickListener(this);
 
     }
 
@@ -135,5 +123,26 @@ public class AnggotaActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        ModelAnggota ma = listAnggota.get(position);
+
+        Intent intent = new Intent(AnggotaActivity.this, DetailAnggota.class);
+        intent.putExtra("id_anggota", ma.getID());
+        intent.putExtra("NAMA", ma.getNAMA());
+        intent.putExtra("TGL_LAHIR", ma.getTGL_LAHIR());
+        intent.putExtra("TEMPAT_LAHIR", ma.getTEMPAT_LAHIR());
+        intent.putExtra("ALAMAT", ma.getALAMAT());
+        intent.putExtra("EMAIL", ma.getEMAIL());
+        intent.putExtra("NO_HP", ma.getNO_HP());
+        intent.putExtra("AGAMA", ma.getAGAMA());
+        intent.putExtra("PARTAI", ma.getPARTAI());
+        intent.putExtra("FOTO", ma.getFOTO());
+        intent.putExtra("POSISI", ma.getPOSISI());
+        intent.putExtra("NIK", ma.getNIK());
+        startActivity(intent);
+
     }
 }
