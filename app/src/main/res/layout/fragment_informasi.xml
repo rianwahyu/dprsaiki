@@ -286,7 +286,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:ignore="MissingConstraints"
-                        android:text="STRUKTUR AKD"
+                        android:text="VIDEO"
                         app:layout_constraintTop_toBottomOf="@id/imgVIdeo"
                         android:layout_marginTop="5dp"
                         app:layout_constraintRight_toRightOf="parent"

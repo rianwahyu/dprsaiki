@@ -1,32 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.facebook.shimmer.ShimmerFrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/shimmer">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <include layout="@layout/placeholder_aspirasi"/>
-            <include layout="@layout/placeholder_aspirasi"/>
-            <include layout="@layout/placeholder_aspirasi"/>
-            <include layout="@layout/placeholder_aspirasi"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/linearNduwur"
+            android:layout_margin="5dp"
+            android:layout_alignParentTop="true">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="40dp"
+                android:background="@drawable/editext_background_round"
+                android:hint="Cari Disini"
+                android:padding="5dp"
+                android:inputType="text"
+                android:layout_margin="5dp"
+                android:id="@+id/et_search"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                tools:ignore="Suspicious0dp"
+                android:src="@drawable/ic_search"
+                android:id="@+id/imgSearch"/>
+
         </LinearLayout>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/shimmer"
+            android:layout_below="@id/linearNduwur">
 
-    </com.facebook.shimmer.ShimmerFrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <include layout="@layout/placeholder_aspirasi"/>
+                <include layout="@layout/placeholder_aspirasi"/>
+                <include layout="@layout/placeholder_aspirasi"/>
+                <include layout="@layout/placeholder_aspirasi"/>
+            </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rcAgenda"
-        android:layout_marginBottom="10dp">
-    </android.support.v7.widget.RecyclerView>
 
-</RelativeLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rcAgenda"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/linearNduwur">
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+
+
+
+</android.support.v4.widget.NestedScrollView>
