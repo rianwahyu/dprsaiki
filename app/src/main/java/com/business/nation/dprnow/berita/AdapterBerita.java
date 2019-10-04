@@ -2,6 +2,7 @@ package com.business.nation.dprnow.berita;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,6 +49,11 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (viewHolder instanceof ViewHolders) {
             ViewHolders viewHolders = (ViewHolders) viewHolder;
 
+            Typeface typeTitle = Typeface.createFromAsset(context.getAssets(),
+                    "Roboto-Bold.ttf");
+            Typeface typeUser = Typeface.createFromAsset(context.getAssets(),
+                    "Roboto-Regular.ttf");
+
             viewHolders.textTanggal.setText(mDataset.get(position).getTANGGAL());
             viewHolders.textJam.setText(mDataset.get(position).getJAM());
             viewHolders.textJudul.setText(mDataset.get(position).getJUDUL());
@@ -77,6 +83,9 @@ public class AdapterBerita extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             Glide.with(context)
                     .load(photo)
                     .into(viewHolders.imgBerita);
+
+            viewHolders.textJudul.setTypeface(typeTitle);
+            viewHolders.textIsi.setTypeface(typeUser);
         }
     }
 

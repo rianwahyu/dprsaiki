@@ -42,9 +42,12 @@
         <View
             android:layout_height="1dp"
             android:layout_width="fill_parent"
-            android:background="#90909090"
-            android:layout_marginBottom="5dp"
+            android:background="#90E4E2E2"
             android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             tools:ignore="MissingConstraints"
             app:layout_constraintTop_toBottomOf="@id/btnAspirasi"/>
 
@@ -56,7 +59,7 @@
             android:textColor="#FF1744"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:id="@+id/textTanggalAspirasi"
             android:textSize="14sp" />
@@ -70,7 +73,8 @@
             android:id="@+id/imgAspirasi"
             app:layout_constraintTop_toBottomOf="@id/btnAspirasi"
             android:layout_marginTop="10dp"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/no_image"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -80,28 +84,34 @@
             android:text="@string/title"
             android:layout_marginTop="10dp"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/textJudulAspirasi"
             android:textColor="@color/black"/>
 
-        <WebView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints"
             android:id="@+id/textIsiAspirasi"
             app:layout_constraintTop_toBottomOf="@id/textJudulAspirasi"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="parent"
             />
 
         <View
             android:layout_height="1dp"
             android:layout_width="fill_parent"
-            android:background="#90909090"
-            android:layout_marginBottom="5dp"
+            android:background="#90E4E2E2"
             android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             tools:ignore="MissingConstraints"
             app:layout_constraintTop_toBottomOf="@id/textIsiAspirasi"/>
 
@@ -120,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:text="Diterima"
                 android:layout_alignParentLeft="true"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:textColor="#0288D1"
                 android:id="@+id/textStatusAspirasi"
                 android:textStyle="bold"/>
@@ -129,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:text="User"
                 android:layout_alignParentRight="true"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:layout_marginRight="5dp"
                 android:textColor="@color/red"
                 android:id="@+id/textUserAspirasi"/>
@@ -138,9 +148,12 @@
         <View
             android:layout_height="1dp"
             android:layout_width="fill_parent"
-            android:background="#90909090"
-            android:layout_marginBottom="10dp"
+            android:background="#90E4E2E2"
             android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             tools:ignore="MissingConstraints"
             app:layout_constraintTop_toBottomOf="@id/relAspirasiDIterima"/>
 

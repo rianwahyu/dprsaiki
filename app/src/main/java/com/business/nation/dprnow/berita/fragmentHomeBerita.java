@@ -1,5 +1,6 @@
 package com.business.nation.dprnow.berita;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,11 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -74,12 +79,31 @@ public class fragmentHomeBerita extends Fragment {
         recyclerView.setAdapter(adapter);
         initBerita();
 
+        et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int act, KeyEvent keyEvent) {
+                if ((keyEvent !=null && (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) ||
+                        act == EditorInfo.IME_ACTION_DONE){
+                    imgSearch.performClick();
+                }
+                return false;
+            }
+        });
+
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(et_search.getWindowToken(),
+                        InputMethodManager.RESULT_UNCHANGED_SHOWN);
                 String query = et_search.getText().toString();
 
-                cariBerita(query);
+                if (query.isEmpty()){
+                    Toast.makeText(getActivity(), "Form Tidak Boleh Kosong ", Toast.LENGTH_SHORT).show();
+                }else{
+                    cariBerita(query);
+                }
+
             }
         });
     }

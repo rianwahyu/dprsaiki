@@ -8,7 +8,7 @@ public class NetworkState {
 
     public static String urlPDF = "http://dprd.gresikkab.go.id/dprd/pdf/";
 
-
+    public static String urlCek = "http://newbieprogramming.000webhostapp.com/api/";
 
     public static String getUrl() {
         return url;
@@ -20,5 +20,9 @@ public class NetworkState {
 
     public static String getUrlPDF() {
         return urlPDF;
+    }
+
+    public static String getUrlCek() {
+        return urlCek;
     }
 }

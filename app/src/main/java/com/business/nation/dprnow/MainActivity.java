@@ -12,21 +12,32 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.business.nation.dprnow.fragment.FragmentInformasi;
 import com.business.nation.dprnow.komisi.FragmentPengaduanList;
 import com.business.nation.dprnow.fragment.FragmentStreaming;
 import com.business.nation.dprnow.fragment.fragmentHome;
+import com.business.nation.dprnow.util.AppController;
+import com.business.nation.dprnow.util.NetworkState;
 import com.business.nation.dprnow.util.SessionManager;
 import com.shashank.sony.fancydialoglib.Animation;
 import com.shashank.sony.fancydialoglib.FancyAlertDialog;
 import com.shashank.sony.fancydialoglib.FancyAlertDialogListener;
 import com.shashank.sony.fancydialoglib.Icon;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        cekUpdate();
 
         bottomNavigation = (BottomNavigationView) findViewById(R.id.navigation);
         fragmentManager = getSupportFragmentManager();
@@ -113,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
+
+
     }
 
     @Override
@@ -145,5 +160,48 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .build();
+    }
+
+    int sukses;
+    String versiPhone="1.0";
+    public void cekUpdate(){
+        String url = NetworkState.getUrlCek()+"cek_dprd.php" ;
+        StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST,url,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jObj = null;
+                        try {
+                            jObj = new JSONObject(response);
+                            sukses = jObj.getInt("response");
+                            String versi = jObj.getString("versi");
+
+                            if (!versi.equals(versiPhone)){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                builder.setTitle("Maintenance");
+                                builder.setMessage("Mohon Maaf Aplikasi Dalam Maintenance");
+                                builder.setCancelable(false);
+                                builder.show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("error",error.toString());
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(stringRequest);
     }
 }
