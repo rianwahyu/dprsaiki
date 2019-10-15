@@ -1,6 +1,7 @@
 package com.business.nation.dprnow.agenda;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.business.nation.dprnow.R;
-import com.business.nation.dprnow.aspirasi.ModelAspirasi;
 
 import java.util.List;
 
@@ -38,13 +38,23 @@ public class AdapterAgenda extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if (viewHolder instanceof ViewHolders) {
-            ViewHolders viewHolders = (ViewHolders) viewHolder;
 
+            Typeface typeTitle = Typeface.createFromAsset(context.getAssets(),
+                    "Roboto-Bold.ttf");
+            Typeface typeUser = Typeface.createFromAsset(context.getAssets(),
+                    "Roboto-Regular.ttf");
+
+            ViewHolders viewHolders = (ViewHolders) viewHolder;
             viewHolders.textTanggal.setText(mDataset.get(position).getTANGGAL());
             viewHolders.textJam.setText(mDataset.get(position).getJAM());
             viewHolders.textJudul.setText(mDataset.get(position).getJUDUL());
             viewHolders.textIsi.setText(mDataset.get(position).getDESKRIPSI());
             viewHolders.textTempat.setText(mDataset.get(position).getTEMPAT());
+
+            viewHolders.textJudul.setTypeface(typeTitle);
+            viewHolders.textIsi.setTypeface(typeUser);
+            viewHolders.textTempat.setTypeface(typeUser);
+            viewHolders.textJam.setTypeface(typeUser);
         }
 
     }
